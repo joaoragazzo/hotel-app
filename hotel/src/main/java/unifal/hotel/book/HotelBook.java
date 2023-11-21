@@ -138,4 +138,16 @@ public class HotelBook {
     public final static String SELECT_ALL_RECEPTIONIST_ID =
             //language=SQL
             "SELECT employee_id FROM receptionist;";
+
+    public final static String INSERT_NEW_ROOM =
+            //language=SQL
+            "INSERT INTO room(id, type, rate) VALUES (NULL, ?, ?);";
+
+    public final static String INSERT_NEW_BOOKING =
+            //language=SQL
+            "INSERT INTO booking(id, client_id, room_id, checkin_date, checkout_date) VALUES (NULL, ?, ?, ?, ?)";
+
+    public final static String SELECT_ALL_BOOKINGS_BETWEEN_TWO_DATES =
+            //language=SQL
+            "SELECT * FROM booking WHERE room_id = ? AND NOT (checkout_date <= ? OR checkin_date >= ?);";
 }
