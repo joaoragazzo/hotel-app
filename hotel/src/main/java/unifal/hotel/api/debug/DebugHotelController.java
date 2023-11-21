@@ -61,7 +61,6 @@ public class DebugHotelController {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Date birthdate;
 
-
         try {
             birthdate = formatter.parse(requestParams.get("birthdate"));
         } catch (ParseException e) {
@@ -103,4 +102,57 @@ public class DebugHotelController {
         return databaseConnection.insertNewAddress(person_id, street, neighborhood, zipcode, city, country);
     }
 
+    @PostMapping("/debug/insert-client")
+    public APIMessageResponse insertClient(@RequestBody Map<String, String> requestParams)
+    {
+        mySQLHotelRepository databaseConnection = new mySQLHotelRepository();
+
+        Long person_id = Long.parseLong(requestParams.get("person_id"));
+
+        return databaseConnection.insertNewClient(person_id);
+    }
+
+    @PostMapping("/debug/insert-employee")
+    public APIMessageResponse insertEmployee(@RequestBody Map<String, String> requestParams)
+    {
+        mySQLHotelRepository databaseConnection = new mySQLHotelRepository();
+        APIMessageResponse response = new APIMessageResponse();
+
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        Date hiredate;
+
+        try {
+            hiredate = formatter.parse(requestParams.get("hire_date"));
+        } catch (NullPointerException | ParseException e) {
+            response.setMessage("Invalid hire date format.");
+            return response;
+        }
+
+        java.sql.Date hiredateSQL = new java.sql.Date(hiredate.getTime());
+        Integer salary = Integer.parseInt(requestParams.get("salary"));
+        Long person_id = Long.parseLong(requestParams.get("person_id"));
+
+        return databaseConnection.insertNewEmployee(person_id, salary, hiredateSQL);
+    }
+
+    @PostMapping("/debug/insert-receptionist")
+    public APIMessageResponse insertReceptionist(@RequestBody Map<String, String> requestParams)
+    {
+        mySQLHotelRepository databaseConnection = new mySQLHotelRepository();
+
+        Integer employee_id = Integer.parseInt(requestParams.get("employee_id"));
+
+        return databaseConnection.insertNewReceptionist(employee_id);
+    }
+
+    @PostMapping("/debug/insert-manager")
+    public APIMessageResponse insertManager(@RequestBody Map<String, String> requestParams)
+    {
+        mySQLHotelRepository databaseConnection = new mySQLHotelRepository();
+
+        Integer employee_id = Integer.parseInt(requestParams.get("employee_id"));
+
+        return databaseConnection.insertNewManager(employee_id);
+    }
 }

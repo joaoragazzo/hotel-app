@@ -4,6 +4,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import unifal.hotel.book.HotelBook;
 import unifal.hotel.api.APIMessageResponse;
 
+import javax.naming.PartialResultException;
 import java.sql.*;
 import java.util.Objects;
 
@@ -182,8 +183,7 @@ public class mySQLHotelRepository implements HotelRepository {
 
             int n = preparedStatement.executeUpdate();
 
-            if (n == 0)
-            {
+            if (n == 0) {
                 response.setMessage("A new person was successfully created.");
                 return response;
             }
@@ -273,7 +273,6 @@ public class mySQLHotelRepository implements HotelRepository {
 
     }
 
-
     public APIMessageResponse insertNewAddress(Long person_id, String street, String neighborhood, Long zipcode, String city, String country)
     {
         APIMessageResponse response = new APIMessageResponse();
@@ -323,4 +322,225 @@ public class mySQLHotelRepository implements HotelRepository {
             closeConnection();
         }
     }
+
+    public APIMessageResponse insertNewClient(Long person_id)
+    {
+        APIMessageResponse response = new APIMessageResponse();
+
+        if (!connectToMySQL()) {
+            response.setMessage("Error connecting to the database.");
+            return response;
+        }
+
+        try {
+            preparedStatement = connection.prepareStatement(
+                    HotelBook.INSERT_NEW_CLIENT
+            );
+
+            preparedStatement.setLong(1, person_id);
+
+            int n = preparedStatement.executeUpdate();
+
+            if (n == 0) {
+                response.setMessage("A unknown error occurs when trying to set a new client.");
+                return response;
+            }
+
+            response.setMessage("The person " + person_id.toString() + " was successfully set as a client.");
+            return response;
+        } catch (SQLException e) {
+
+            if (e.toString().contains("Cannot read the array length because \"input\" is null")) {
+                response.setMessage("The request does not have all necessary parameters.");
+                return response;
+            }
+
+            response.setMessage("A error occurs when trying to create a new account: " + e);
+            return response;
+
+        } finally {
+            closeConnection();
+        }
+    }
+
+    public APIMessageResponse insertNewEmployee(Long person_id, Integer salary, Date hire_date)
+    {
+        APIMessageResponse response = new APIMessageResponse();
+
+        if (!connectToMySQL()) {
+            response.setMessage("Error connecting to the database.");
+            return response;
+        }
+
+        try {
+            preparedStatement = connection.prepareStatement(
+                    HotelBook.INSERT_NEW_EMPLOYEE
+            );
+
+            preparedStatement.setLong(1, person_id);
+            preparedStatement.setDate(2, hire_date);
+            preparedStatement.setInt(3, salary);
+
+            int n = preparedStatement.executeUpdate();
+
+            if (n == 0) {
+                response.setMessage("A unknown error occurs when trying to add a new address.");
+                return response;
+            }
+
+            response.setMessage("The person " + person_id.toString() + " was successfully set as an employee.");
+
+            return response;
+
+        } catch (SQLException e) {
+
+            if (e.toString().contains("Cannot read the array length because \"input\" is null")) {
+                response.setMessage("The request does not have all necessary parameters.");
+                return response;
+            }
+
+            if (e.toString().contains("a foreign key constraint fails (`hotel`.`employee`, CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)")) {
+                response.setMessage("Impossible to set a person that is not registered as an employee.");
+                return response;
+            }
+
+            if (e.toString().contains("Duplicate entry")) {
+                response.setMessage("The person " + person_id.toString() + " is already set as an employee.");
+                return response;
+            }
+
+            response.setMessage("A error occurs when trying to create a new account: " + e);
+            return response;
+
+        } finally {
+            closeConnection();
+        }
+
+    }
+
+    public APIMessageResponse insertNewReceptionist(Integer employee_id)
+    {
+        APIMessageResponse response = new APIMessageResponse();
+
+        if (!connectToMySQL()) {
+            response.setMessage("Error connecting to the database.");
+            return response;
+        }
+
+        try {
+            preparedStatement = connection.prepareStatement(
+                    HotelBook.SELECT_ALL_MANAGERS_ID
+            );
+
+            resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()) {
+                response.setMessage("The employee is already a manager.");
+                return response;
+            }
+
+            preparedStatement = connection.prepareStatement(
+                    HotelBook.INSERT_NEW_RECEPTIONIST
+            );
+
+            preparedStatement.setInt(1, employee_id);
+
+            int n = preparedStatement.executeUpdate();
+
+            if (n == 0) {
+                response.setMessage("A unknown error occurs when trying to set a new receptionist.");
+                return response;
+            }
+
+            response.setMessage("The employee " + employee_id.toString() + " was successfully set as a receptionist.");
+            return response;
+        } catch (SQLException e) {
+
+            if (e.toString().contains("Cannot add or update a child row: a foreign key constraint fails (`hotel`.`receptionist`, CONSTRAINT `receptionist_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)")) {
+                response.setMessage("Impossible to set a unregistered employee as an receptionist.");
+                return response;
+            }
+
+            if (e.toString().contains("Cannot read the array length because \"input\" is null")) {
+                response.setMessage("The request does not have all necessary parameters.");
+                return response;
+            }
+
+            if (e.toString().contains("Duplicate entry")) {
+                response.setMessage("The employee " + employee_id.toString() + " already is a receptionist.");
+                return response;
+            }
+            response.setMessage("A error occurs when trying to create a new account: " + e);
+            return response;
+
+        } finally {
+            closeConnection();
+        }
+    }
+
+    public APIMessageResponse insertNewManager(Integer employee_id)
+    {
+
+        APIMessageResponse response = new APIMessageResponse();
+
+        if (!connectToMySQL()) {
+            response.setMessage("Error connecting to the database.");
+            return response;
+        }
+
+        try {
+            preparedStatement = connection.prepareStatement(
+                HotelBook.SELECT_ALL_RECEPTIONIST_ID
+            );
+
+            resultSet = preparedStatement.executeQuery();
+
+            System.out.println("TAMANHO = " + resultSet.getFetchSize());
+
+            if(resultSet.next()) {
+                response.setMessage("The employee " + employee_id.toString() + " already is a receptionist.");
+                return response;
+            }
+
+            preparedStatement = connection.prepareStatement(
+                    HotelBook.INSERT_NEW_MANAGER
+            );
+
+            preparedStatement.setInt(1, employee_id);
+
+            int n = preparedStatement.executeUpdate();
+
+            if (n == 0) {
+                response.setMessage("A unknown error happened when trying to set a new manager.");
+                return response;
+            }
+
+            response.setMessage("The employee " + employee_id.toString() + " was successfully set as a manager.");
+            return response;
+
+        } catch (SQLException e) {
+
+            if (e.toString().contains("Cannot add or update a child row: a foreign key constraint fails (`hotel`.`manager`, CONSTRAINT `manager_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)")) {
+                response.setMessage("Impossible to set a unregistered employee as an manager.");
+                return response;
+            }
+
+            if (e.toString().contains("Cannot read the array length because \"input\" is null")) {
+                response.setMessage("The request does not have all necessary parameters.");
+                return response;
+            }
+
+            if (e.toString().contains("Duplicate entry")) {
+                response.setMessage("The employee " + employee_id.toString() + " already is a receptionist.");
+                return response;
+            }
+            response.setMessage("A error occurs when trying to create a new account: " + e);
+            return response;
+
+        } finally {
+            closeConnection();
+        }
+    }
+
+
 }

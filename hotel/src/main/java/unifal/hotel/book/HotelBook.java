@@ -51,7 +51,7 @@ public class HotelBook {
             //language=SQL
             "CREATE TABLE employee( " +
                     "id INT NOT NULL AUTO_INCREMENT UNIQUE," +
-                    "person_id BIGINT(11) NOT NULL," +
+                    "person_id BIGINT(11) NOT NULL UNIQUE," +
                     "hire_date DATE NOT NULL," +
                     "salary INT NOT NULL," +
                     "PRIMARY KEY (id)," +
@@ -62,7 +62,7 @@ public class HotelBook {
             //language=SQL
             "CREATE TABLE manager(" +
                     "id INT NOT NULL AUTO_INCREMENT UNIQUE, " +
-                    "employee_id INT NOT NULL," +
+                    "employee_id INT NOT NULL UNIQUE," +
                     "PRIMARY KEY (id), " +
                     "FOREIGN KEY (employee_id) REFERENCES employee(id) ON UPDATE CASCADE ON DELETE CASCADE" +
                     ");";
@@ -71,7 +71,7 @@ public class HotelBook {
             //language=SQL
             "CREATE TABLE receptionist(" +
                     "id INT NOT NULL AUTO_INCREMENT UNIQUE," +
-                    "employee_id INT NOT NULL," +
+                    "employee_id INT NOT NULL UNIQUE," +
                     "rating INT NOT NULL DEFAULT 0," +
                     "PRIMARY KEY (id)," +
                     "FOREIGN KEY (employee_id) REFERENCES employee(id) ON UPDATE CASCADE ON DELETE CASCADE" +
@@ -90,7 +90,7 @@ public class HotelBook {
             // language=SQL
             "CREATE TABLE booking(" +
                     "id INT NOT NULL AUTO_INCREMENT UNIQUE," +
-                    "client_id INT NOT NULL UNIQUE," +
+                    "client_id INT NOT NULL," +
                     "room_id INT NOT NULL," +
                     "checkin_date DATE NOT NULL," +
                     "checkout_date DATE NOT NULL, " +
@@ -115,4 +115,27 @@ public class HotelBook {
             //language=SQL
             "INSERT INTO address(id, person_id, street, neighborhood, zipcode, city, country) VALUES (NULL, ?, ?, ?, ?, ?, ?);";
 
+    public final static String INSERT_NEW_CLIENT =
+            //language=SQL
+            "INSERT INTO client(id, person_id) VALUES (NULL, ?);";
+
+    public final static String INSERT_NEW_EMPLOYEE =
+            //language=SQL
+            "INSERT INTO employee(id, person_id, hire_date, salary) VALUES (NULL, ?, ?, ?);";
+
+    public final static String INSERT_NEW_RECEPTIONIST =
+            //language=SQL
+            "INSERT INTO receptionist(id, employee_id, rating) VALUES (NULL, ?, 0)";
+
+    public final static String INSERT_NEW_MANAGER =
+            //language=SQL
+            "INSERT INTO manager(id, employee_id) VALUES (NULL, ?);";
+
+    public final static String SELECT_ALL_MANAGERS_ID =
+            //language=SQL
+            "SELECT employee_id FROM manager;";
+
+    public final static String SELECT_ALL_RECEPTIONIST_ID =
+            //language=SQL
+            "SELECT employee_id FROM receptionist;";
 }
