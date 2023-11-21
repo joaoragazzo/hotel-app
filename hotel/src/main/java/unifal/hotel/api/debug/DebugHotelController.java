@@ -88,4 +88,19 @@ public class DebugHotelController {
         return databaseConnection.insertAccount(person_id, username, password);
     }
 
+    @PostMapping("/debug/insert-address")
+    public APIMessageResponse insertAddress(@RequestBody Map<String, String> requestParams)
+    {
+        mySQLHotelRepository databaseConnection = new mySQLHotelRepository();
+
+        Long person_id = Long.parseLong(requestParams.get("person_id"));
+        String street = requestParams.get("street");
+        String neighborhood = requestParams.get("neighborhood");
+        Long zipcode = Long.parseLong(requestParams.get("zipcode").replace("-", ""));
+        String city = requestParams.get("city");
+        String country = requestParams.get("country");
+
+        return databaseConnection.insertNewAddress(person_id, street, neighborhood, zipcode, city, country);
+    }
+
 }

@@ -20,7 +20,7 @@ public class HotelBook {
                     "person_id BIGINT(11) NOT NULL," +
                     "street VARCHAR(255) NOT NULL," +
                     "neighborhood VARCHAR(255) NOT NULL," +
-                    "zipcode BIGINT(8) NOT NULL," +
+                    "zipcode BIGINT(255) NOT NULL," +
                     "city VARCHAR(255) NOT NULL, " +
                     "country VARCHAR(255) NOT NULL," +
                     "PRIMARY KEY (id), " +
@@ -110,4 +110,9 @@ public class HotelBook {
     public final static String INSERT_NEW_ACCOUNT =
             //language=SQL
             "INSERT INTO account(id, person_id, username, password) VALUES (NULL, ?, ?, ?);";
+
+    public final static String INSERT_NEW_ADDRESS =
+            //language=SQL
+            "INSERT INTO address(id, person_id, street, neighborhood, zipcode, city, country) VALUES (NULL, ?, ?, ?, ?, ?, ?);";
+
 }

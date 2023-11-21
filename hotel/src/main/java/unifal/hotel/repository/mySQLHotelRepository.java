@@ -158,7 +158,8 @@ public class mySQLHotelRepository implements HotelRepository {
         return response;
     }
 
-    public APIMessageResponse insertPerson(Long id, String name, String surname, Long cellphone, Date birthdate, String gender) {
+    public APIMessageResponse insertPerson(Long id, String name, String surname, Long cellphone, Date birthdate, String gender)
+    {
 
         APIMessageResponse response = new APIMessageResponse();
 
@@ -188,10 +189,18 @@ public class mySQLHotelRepository implements HotelRepository {
             }
 
         } catch (SQLException e) {
+
+            if (e.toString().contains("Cannot read the array length because \"input\" is null")) {
+                response.setMessage("The request does not have all necessary parameters.");
+                return response;
+            }
+
             if (e.toString().contains("cellphone")) {
                 response.setMessage("The cellphone number already exists.");
                 return response;
-            } else if (e.toString().contains("PRIMARY")) {
+            }
+
+            if (e.toString().contains("PRIMARY")) {
                 response.setMessage("The ID number already exists.");
                 return response;
             }
@@ -207,7 +216,8 @@ public class mySQLHotelRepository implements HotelRepository {
         return response;
     }
 
-    public APIMessageResponse insertAccount(Long person_id, String username, String password) {
+    public APIMessageResponse insertAccount(Long person_id, String username, String password)
+    {
 
         APIMessageResponse response = new APIMessageResponse();
 
@@ -240,6 +250,11 @@ public class mySQLHotelRepository implements HotelRepository {
 
         } catch (SQLException e) {
 
+            if (e.toString().contains("Cannot read the array length because \"input\" is null")) {
+                response.setMessage("The request does not have all necessary parameters.");
+                return response;
+            }
+
             if (e.toString().contains("Cannot add or update a child row: a foreign key constraint fails (`hotel`.`account`, CONSTRAINT `account_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)")) {
                 response.setMessage("Impossible to create a account to a person that is not registered.");
                 return response;
@@ -258,4 +273,54 @@ public class mySQLHotelRepository implements HotelRepository {
 
     }
 
+
+    public APIMessageResponse insertNewAddress(Long person_id, String street, String neighborhood, Long zipcode, String city, String country)
+    {
+        APIMessageResponse response = new APIMessageResponse();
+
+        if (!connectToMySQL()) {
+            response.setMessage("Error connecting to the database.");
+            return response;
+        }
+
+        try {
+            preparedStatement = connection.prepareStatement(
+                    HotelBook.INSERT_NEW_ADDRESS
+            );
+
+            preparedStatement.setLong(1, person_id);
+            preparedStatement.setString(2, street);
+            preparedStatement.setString(3, neighborhood);
+            preparedStatement.setLong(4, zipcode);
+            preparedStatement.setString(5, city);
+            preparedStatement.setString(6, country);
+
+            int n = preparedStatement.executeUpdate();
+
+            if (n == 0) {
+                response.setMessage("A unknown error occurs when trying to add a new address.");
+                return response;
+            }
+
+            response.setMessage("A new address was successfully added.");
+            return response;
+
+        } catch (SQLException e) {
+
+            if (e.toString().contains("Cannot read the array length because \"input\" is null")) {
+                response.setMessage("The request does not have all necessary parameters.");
+                return response;
+            }
+
+            if (e.toString().contains("Cannot add or update a child row: a foreign key constraint fails (`hotel`.`address`, CONSTRAINT `address_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)")) {
+                response.setMessage("Impossible to create new address to a person that is not registered.");
+                return response;
+            }
+
+            response.setMessage("A error occurs when trying to create a new account: " + e);
+            return response;
+        } finally {
+            closeConnection();
+        }
+    }
 }
