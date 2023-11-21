@@ -4,12 +4,12 @@ public class HotelBook {
     public final static String CREATE_TABLE_PERSON =
             // language=SQL
             "CREATE TABLE person (" +
-                    "id INT(11) NOT NULL UNIQUE," +
+                    "id BIGINT(11) NOT NULL UNIQUE," +
                     "name VARCHAR(255) NOT NULL, " +
                     "surname VARCHAR(255) NOT NULL, " +
-                    "cellphone INT(11) UNIQUE," +
+                    "cellphone BIGINT(11) UNIQUE," +
                     "birthdate DATE NOT NULL," +
-                    "sex VARCHAR(1) NOT NULL," +
+                    "gender VARCHAR(1) NOT NULL," +
                     "PRIMARY KEY (id)" +
                     ");";
 
@@ -17,10 +17,10 @@ public class HotelBook {
             // language=SQL
             "CREATE TABLE address (" +
                     "id INT NOT NULL AUTO_INCREMENT UNIQUE, " +
-                    "person_id INT(11) NOT NULL," +
+                    "person_id BIGINT(11) NOT NULL," +
                     "street VARCHAR(255) NOT NULL," +
                     "neighborhood VARCHAR(255) NOT NULL," +
-                    "zipcode INT(8) NOT NULL," +
+                    "zipcode BIGINT(8) NOT NULL," +
                     "city VARCHAR(255) NOT NULL, " +
                     "country VARCHAR(255) NOT NULL," +
                     "PRIMARY KEY (id), " +
@@ -31,7 +31,7 @@ public class HotelBook {
             // language=SQL
             "CREATE TABLE account(" +
                     "id INT NOT NULL AUTO_INCREMENT UNIQUE," +
-                    "person_id INT(11) NOT NULL," +
+                    "person_id BIGINT(11) NOT NULL UNIQUE," +
                     "username VARCHAR(255) NOT NULL UNIQUE," +
                     "password VARCHAR(255) NOT NULL," +
                     "PRIMARY KEY (id)," +
@@ -42,7 +42,7 @@ public class HotelBook {
             // language=SQL
             "CREATE TABLE client(" +
                     "id INT NOT NULL AUTO_INCREMENT UNIQUE," +
-                    "person_id INT(11) NOT NULL," +
+                    "person_id BIGINT(11) NOT NULL," +
                     "PRIMARY KEY (id)," +
                     "FOREIGN KEY (person_id) REFERENCES person(id) ON UPDATE CASCADE ON DELETE CASCADE" +
                     ");";
@@ -51,7 +51,7 @@ public class HotelBook {
             //language=SQL
             "CREATE TABLE employee( " +
                     "id INT NOT NULL AUTO_INCREMENT UNIQUE," +
-                    "person_id INT(11) NOT NULL," +
+                    "person_id BIGINT(11) NOT NULL," +
                     "hire_date DATE NOT NULL," +
                     "salary INT NOT NULL," +
                     "PRIMARY KEY (id)," +
@@ -90,7 +90,7 @@ public class HotelBook {
             // language=SQL
             "CREATE TABLE booking(" +
                     "id INT NOT NULL AUTO_INCREMENT UNIQUE," +
-                    "client_id INT(11) NOT NULL UNIQUE," +
+                    "client_id INT NOT NULL UNIQUE," +
                     "room_id INT NOT NULL," +
                     "checkin_date DATE NOT NULL," +
                     "checkout_date DATE NOT NULL, " +
@@ -102,4 +102,12 @@ public class HotelBook {
     public final static String DROP_ALL_TABLES =
             // language=SQL
             "DROP TABLE receptionist, address, booking, account, client, manager, employee, room, person";
+
+    public final static String INSERT_NEW_PEOPLE =
+            // language=SQL
+            "INSERT INTO person(id, name, surname, cellphone, birthdate, gender) VALUES (?, ?, ?, ?, ?, ?);";
+
+    public final static String INSERT_NEW_ACCOUNT =
+            //language=SQL
+            "INSERT INTO account(id, person_id, username, password) VALUES (NULL, ?, ?, ?);";
 }
