@@ -9,7 +9,7 @@
     <h1>It works!</h1>
     <br>
     <tr data-th-each="person: ${people}">
-        <td data-th-text="${person.name}"></td></br>
+        <td data-th-text="${person.id} + ' | ' + ${person.name} + ' | ' + (${person.account} != null ? ${person.account.username} : 'No account!') + ' | ' + ${person.id}"></td></br>
     </tr>
 
 </body>
