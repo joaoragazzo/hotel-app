@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -12,7 +13,7 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Entity
 @Table(name="employee")
-public abstract class Employee {
+public abstract class Employee implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -7,12 +7,14 @@ import lombok.Getter;
 import lombok.Setter;
 import unifal.hotel.services.enums.RoomType;
 
+import java.io.Serializable;
+
 
 @Getter
 @Setter
 @Entity
 @Table(name="room")
-public class Room {
+public class Room implements Serializable {
     @Id
     private Long id;
     private RoomType room_type;
