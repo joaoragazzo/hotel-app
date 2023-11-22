@@ -8,7 +8,7 @@ import unifal.hotel.services.enums.RoomType;
 import java.sql.*;
 import java.util.Objects;
 
-public class mySQLHotelRepository implements HotelRepository {
+public class mySQLHotelRepository {
 
     private Connection connection;
     private Statement statement;
