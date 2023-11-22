@@ -150,4 +150,12 @@ public class HotelBook {
     public final static String SELECT_ALL_BOOKINGS_BETWEEN_TWO_DATES =
             //language=SQL
             "SELECT * FROM booking WHERE room_id = ? AND NOT (checkout_date <= ? OR checkin_date >= ?);";
+
+
+    /**
+     * Início da utilização de query personalizadas para utilização no JPA e Jakarta
+     */
+    public final static String CHECK_IF_EXIST_BOOKING_CONFLICTS =
+            //language=SQL
+            "SELECT COUNT(b.id) > 0 FROM Booking b WHERE b.room_id = :roomId AND NOT (b.checkout_date <= :startDate OR b.checkin_date >= :endDate)";
 }

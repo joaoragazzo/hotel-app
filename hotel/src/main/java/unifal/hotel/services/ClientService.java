@@ -2,16 +2,17 @@ package unifal.hotel.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import unifal.hotel.repository.jparepository.ClientRepository;
 
 @Service
 public class ClientService
 {
-    private final ClientService clientService;
+    private final ClientRepository clientService;
 
     @Autowired
-    public ClientService(ClientService clientService)
+    public ClientService(ClientRepository clientRepository)
     {
-        this.clientService = clientService;
+        this.clientService = clientRepository;
     }
 
 }
