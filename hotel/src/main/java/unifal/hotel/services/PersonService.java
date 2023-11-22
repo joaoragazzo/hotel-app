@@ -3,7 +3,7 @@ package unifal.hotel.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import unifal.hotel.repository.jparepository.PersonRepository;
-import unifal.hotel.services.entities.Person;
+import unifal.hotel.entity.Person;
 
 import java.util.List;
 
@@ -19,6 +19,11 @@ public class PersonService
 
     public List<Person> getAllPersons() {
         return personRepository.findAll();
+    }
+
+    public Person savePerson(Person person)
+    {
+        return personRepository.save(person);
     }
 
 }

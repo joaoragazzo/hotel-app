@@ -1,4 +1,4 @@
-package unifal.hotel.services.entities;
+package unifal.hotel.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

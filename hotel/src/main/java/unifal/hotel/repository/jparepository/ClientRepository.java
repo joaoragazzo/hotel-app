@@ -1,8 +1,8 @@
 package unifal.hotel.repository.jparepository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import unifal.hotel.entity.Account;
+import unifal.hotel.entity.Client;
 
-public interface AccountRepository extends JpaRepository<Account, Long> {
+public interface ClientRepository extends JpaRepository<Client, Long> {
 
 }
