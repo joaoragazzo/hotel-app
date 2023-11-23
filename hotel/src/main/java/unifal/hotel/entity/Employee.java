@@ -27,7 +27,7 @@ public class Employee implements Serializable {
     @OneToOne(mappedBy = "employee")
     private Manager manager;
 
-    @OneToOne(mappedBy = "receptionist")
+    @OneToOne(mappedBy = "employee")
     private Receptionist receptionist;
 
     private Date hire_date;
