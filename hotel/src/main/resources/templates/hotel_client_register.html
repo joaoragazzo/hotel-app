@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Registration Form</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #686767;
+    margin: 0;
+    padding: 50px;
+  }
+  .container {
+    background: white;
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  .form-group {
+    margin-bottom: 10px;
+    display: flex;
+  }
+  .form-group label {
+    flex: 1;
+    padding: 10px;
+  }
+  .form-group input {
+    flex: 2;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .form-row {
+    display: flex;
+  }
+  .form-row .form-group {
+    flex: 1;
+  }
+  .form-row .form-group:not(:last-child) {
+    margin-right: 10px;
+  }
+  .form-footer {
+    text-align: right;
+  }
+  .form-footer button {
+    padding: 10px 30px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Hotel Hotel</h2>
+  <form>
+    <div class="form-row">
+      <div class="form-group">
+        <input type="text" placeholder="Name">
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Surname">
+      </div>
+      
+      <div class="form-group">
+        <input type="text" placeholder="ID">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <input type="tel" placeholder="Cellphone">
+      </div>  
+      <div class="form-group">
+        <input type="text" placeholder="Gender">
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="BirthDate">
+      </div>
+    
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <input type="email" placeholder="Email">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <input type="text" placeholder="City">
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Country">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <input type="text" placeholder="Street">
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Neighborhood">
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="State">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <input type="text" placeholder="ZipCode">
+      </div>
+    </div>
+    <div class="form-footer">
+      <button type="submit">Enter</button>
+    </div>
+  </form>
+</div>
+</body>
+</html>
