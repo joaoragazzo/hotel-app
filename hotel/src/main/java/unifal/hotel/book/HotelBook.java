@@ -22,6 +22,7 @@ public class HotelBook {
                     "neighborhood VARCHAR(255) NOT NULL," +
                     "zipcode BIGINT(255) NOT NULL," +
                     "city VARCHAR(255) NOT NULL, " +
+                    "state VARCHAR(255) NOT NULL," + 
                     "country VARCHAR(255) NOT NULL," +
                     "PRIMARY KEY (id), " +
                     "FOREIGN KEY (person_id) REFERENCES person(id) ON UPDATE CASCADE ON DELETE CASCADE" +
@@ -32,7 +33,7 @@ public class HotelBook {
             "CREATE TABLE account(" +
                     "id INT NOT NULL AUTO_INCREMENT UNIQUE," +
                     "person_id BIGINT(11) NOT NULL UNIQUE," +
-                    "username VARCHAR(255) NOT NULL UNIQUE," +
+                    "email VARCHAR(255) NOT NULL UNIQUE," +
                     "password VARCHAR(255) NOT NULL," +
                     "PRIMARY KEY (id)," +
                     "FOREIGN KEY (person_id) REFERENCES person(id) ON DELETE CASCADE ON UPDATE CASCADE" +
@@ -42,7 +43,7 @@ public class HotelBook {
             // language=SQL
             "CREATE TABLE client(" +
                     "id INT NOT NULL AUTO_INCREMENT UNIQUE," +
-                    "person_id BIGINT(11) NOT NULL," +
+                    "person_id BIGINT(11) NOT NULL UNIQUE," +
                     "PRIMARY KEY (id)," +
                     "FOREIGN KEY (person_id) REFERENCES person(id) ON UPDATE CASCADE ON DELETE CASCADE" +
                     ");";
@@ -109,11 +110,11 @@ public class HotelBook {
 
     public final static String INSERT_NEW_ACCOUNT =
             //language=SQL
-            "INSERT INTO account(id, person_id, username, password) VALUES (NULL, ?, ?, ?);";
+            "INSERT INTO account(id, person_id, email, password) VALUES (NULL, ?, ?, ?);";
 
     public final static String INSERT_NEW_ADDRESS =
             //language=SQL
-            "INSERT INTO address(id, person_id, street, neighborhood, zipcode, city, country) VALUES (NULL, ?, ?, ?, ?, ?, ?);";
+            "INSERT INTO address(id, person_id, street, neighborhood, zipcode, city, country, state) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);";
 
     public final static String INSERT_NEW_CLIENT =
             //language=SQL

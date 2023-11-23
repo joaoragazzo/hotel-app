@@ -16,7 +16,9 @@ import java.util.Date;
 public class Booking implements Serializable {
 
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private Date checkin;
     private Date checkout;
 

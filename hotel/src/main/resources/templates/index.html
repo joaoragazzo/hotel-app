@@ -2,15 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>See people</title>
 </head>
 <body>
 
-    <h1>It works!</h1>
+    <h1>Clients</h1>
     <br>
-    <tr data-th-each="person: ${people}">
-        <td data-th-text="${person.id} + ' | ' + ${person.name} + ' | ' + (${person.account} != null ? ${person.account.username} : 'No account!') + ' | ' + ${person.id}"></td></br>
-    </tr>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Cellphone</th>
+            <th>Birthdate</th>
+            <th>Gender</th>
+            <th>Action</th>
+        </tr>
+        <tr data-th-each="person: ${people}">
+            <td data-th-text="${@idFormatter.format(person.id)}"></td>
+            <td data-th-text="${person.name}"></td>
+            <td data-th-text="${person.surname}"></td>
+            <td data-th-text="${@phoneFormatter.format(person.cellphone)}"></td>
+            <td data-th-text="${@dateFormatter.format(person.birthdate)}"></td>
+            <td data-th-text="${person.gender}"></td>
+            <td><button class="delete-btn" data-th-attr="data-person-id=${person.id}">Delete</button></td>
+        </tr>
+    </table>
+
+    <script>
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const personId = this.getAttribute('data-person-id');
+                fetch(`/debug/delete-client/${personId}`, { method: 'DELETE' })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.reload();
+                            console.log('Pessoa excluída com sucesso');
+                        }
+                    })
+                    .catch(error => console.error('Erro ao excluir pessoa', error));
+            });
+        });
+    </script>
+
 
 </body>
 </html>

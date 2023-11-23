@@ -273,7 +273,7 @@ public class mySQLHotelRepository {
 
     }
 
-    public APIMessageResponse insertNewAddress(Long person_id, String street, String neighborhood, Long zipcode, String city, String country)
+    public APIMessageResponse insertNewAddress(Long person_id, String street, String neighborhood, Long zipcode, String city, String country, String state)
     {
         APIMessageResponse response = new APIMessageResponse();
 
@@ -293,6 +293,7 @@ public class mySQLHotelRepository {
             preparedStatement.setLong(4, zipcode);
             preparedStatement.setString(5, city);
             preparedStatement.setString(6, country);
+            preparedStatement.setString(7, state);
 
             int n = preparedStatement.executeUpdate();
 

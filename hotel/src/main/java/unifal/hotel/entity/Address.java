@@ -14,14 +14,16 @@ import java.io.Serializable;
 public class Address implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="person_id", referencedColumnName = "id")
+    @JoinColumn(name="person_id")
     private Person person;
     private String street;
     private String neighborhood;
-    private Long zip;
+    private Long zipcode;
     private String country;
     private String city;
+    private String state;
 }

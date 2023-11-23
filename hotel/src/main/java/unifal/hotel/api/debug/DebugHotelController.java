@@ -100,15 +100,15 @@ public class DebugHotelController {
     {
         APIMessageResponse response = new APIMessageResponse();
 
-        if (!requestParams.keySet().containsAll(Arrays.asList("person_id", "username", "password"))) {
-            response.setMessage("person_id, username and password is needed for this request.");
+        if (!requestParams.keySet().containsAll(Arrays.asList("person_id", "email", "password"))) {
+            response.setMessage("person_id, email and password is needed for this request.");
             return response;
         }
 
         mySQLHotelRepository databaseConnection = new mySQLHotelRepository();
 
         Long person_id;
-        String username = requestParams.get("username");
+        String email = requestParams.get("email");
         String password = requestParams.get("password");
 
         try {
@@ -119,7 +119,7 @@ public class DebugHotelController {
         }
 
 
-        return databaseConnection.insertAccount(person_id, username, password);
+        return databaseConnection.insertAccount(person_id, email, password);
     }
 
     @PostMapping("/debug/insert-address")
@@ -127,8 +127,8 @@ public class DebugHotelController {
     {
         APIMessageResponse response = new APIMessageResponse();
 
-        if (!requestParams.keySet().containsAll(Arrays.asList("person_id", "zipcode", "street", "neighborhood", "city", "country"))) {
-            response.setMessage("person_id, zipcode, street, neighborhood, city and country is needed for this request.");
+        if (!requestParams.keySet().containsAll(Arrays.asList("person_id", "zipcode", "street", "neighborhood", "city", "country", "state"))) {
+            response.setMessage("person_id, zipcode, street, neighborhood, city, country, state is needed for this request.");
             return response;
         }
 
@@ -140,6 +140,7 @@ public class DebugHotelController {
         String neighborhood = requestParams.get("neighborhood");
         String city = requestParams.get("city");
         String country = requestParams.get("country");
+        String state = requestParams.get("state");
 
         try {
             zipcode = Long.parseLong(requestParams.get("zipcode").replace("-", ""));
@@ -148,7 +149,7 @@ public class DebugHotelController {
             return response;
         }
 
-        return databaseConnection.insertNewAddress(person_id, street, neighborhood, zipcode, city, country);
+        return databaseConnection.insertNewAddress(person_id, street, neighborhood, zipcode, city, country, state);
     }
 
     @PostMapping("/debug/insert-client")

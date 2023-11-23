@@ -1,10 +1,21 @@
 package unifal.hotel.api.debug;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import unifal.hotel.entity.Address;
+import unifal.hotel.entity.Client;
+import unifal.hotel.entity.Person;
 import unifal.hotel.repository.jparepository.PersonRepository;
+import unifal.hotel.services.ClientService;
+import unifal.hotel.services.PersonService;
+import unifal.hotel.services.dto.PersonAddressRegisterDTO;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class JPATesting
@@ -15,11 +26,48 @@ public class JPATesting
         this.personRepository = personRepository;
     }
 
+    @Autowired
+    private PersonService personService;
+
     @GetMapping("/debug/test-jpa")
     public ModelAndView jpa_test()
     {
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("people", personRepository.findAll());
         return mv;
+    }
+
+    @DeleteMapping ("/debug/delete-client/{id}")
+    public ResponseEntity<?> deleteClient(@PathVariable Long id)
+    {
+        personRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/debug/register-person")
+    public ModelAndView register_person()
+    {
+        ModelAndView mv = new ModelAndView("register_client");
+        mv.addObject("register", new PersonAddressRegisterDTO());
+        return mv;
+    }
+
+    @PostMapping("/debug/register")
+    public String processarRegistro(@ModelAttribute("register") PersonAddressRegisterDTO registro)
+    {
+
+        Person person = registro.getPerson();
+        Address address = registro.getAddress();
+
+        System.out.println(address.getZipcode());
+
+        Set<Address> addresses = new HashSet<>();
+        address.setPerson(person);
+        addresses.add(address);
+        person.setAddress(addresses);
+
+        personRepository.save(person);
+
+        return "index";
     }
 }

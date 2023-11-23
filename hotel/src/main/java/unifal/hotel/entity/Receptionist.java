@@ -1,10 +1,7 @@
 package unifal.hotel.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,8 +14,12 @@ import java.io.Serializable;
 @Setter
 public class Receptionist extends Employee implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @OneToOne
     @JoinColumn(name="employee_id")
-    Employee employee;
-    Integer rating = 0;
+    private Employee employee;
+    private Integer rating = 0;
 }

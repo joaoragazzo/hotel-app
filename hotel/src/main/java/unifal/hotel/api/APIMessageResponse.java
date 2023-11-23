@@ -11,7 +11,4 @@ import lombok.Setter;
 public class APIMessageResponse {
 
     private String message;
-
-
-
 }

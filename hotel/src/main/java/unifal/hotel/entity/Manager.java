@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class Manager extends Employee implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne

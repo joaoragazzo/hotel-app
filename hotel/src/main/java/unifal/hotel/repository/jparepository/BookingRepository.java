@@ -10,12 +10,12 @@ import unifal.hotel.entity.Booking;
 import java.util.Date;
 
 @Repository
-public interface BookingRepository extends JpaRepository<Booking, Long>
+public interface BookingRepository extends JpaRepository<Booking, Integer>
 {
 
-    @Query(HotelBook.CHECK_IF_EXIST_BOOKING_CONFLICTS)
+    @Query("SELECT COUNT(b.id) > 0 FROM Booking b WHERE b.id = :roomId AND NOT (b.checkout <= :startDate OR b.checkin >= :endDate)")
     boolean existsConflictingBooking(
-            @Param("roomId") Long roomId,
+            @Param("roomId") Integer roomId,
             @Param("startDate") Date startDate,
             @Param("endDate") Date endDate
     );

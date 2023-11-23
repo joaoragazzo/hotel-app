@@ -14,12 +14,13 @@ import java.io.Serializable;
 public class Account implements Serializable {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
     @JoinColumn(name="person_id")
     private Person person;
-    private String username;
+    private String email;
     private String password;
 
 }
