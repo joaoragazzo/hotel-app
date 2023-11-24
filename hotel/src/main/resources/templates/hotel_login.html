@@ -79,7 +79,7 @@
         <input type="password" name="password" placeholder="Password" required>
       </div>
       <div class="form-footer">
-        <button type="button">Return</button>
+        <button id="returnButton" type="button">Return</button>
         <button type="submit">Enter</button>
       </div>
     </form>
@@ -87,5 +87,10 @@
 <div class="footer">
     <p>Address | Contact</p>
   </div>
+  <script>
+    document.getElementById("returnButton").onclick = function() {
+      location.href = "hotel_homepage.html"
+  }
+  </script>
 </body>
 </html>
