@@ -19,7 +19,7 @@ public class Client implements Serializable {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name="person_id", referencedColumnName = "id")
+    @JoinColumn(name="person_id")
     private Person person;
 
     @OneToMany(mappedBy = "client")
