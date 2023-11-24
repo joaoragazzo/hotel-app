@@ -25,12 +25,10 @@ public class ClientController
 {
 
     private final ClientService clientService;
-    private final PersonService personService;
 
     @Autowired
-    public ClientController(ClientService clientService, PersonService personService) {
+    public ClientController(ClientService clientService) {
         this.clientService = clientService;
-        this.personService = personService;
     }
 
 
@@ -51,12 +49,14 @@ public class ClientController
 
             Set<Address> addresses = new HashSet<>();
 
+
             newAddress.setPerson(newPerson);
             addresses.add(newAddress);
 
             newPerson.setAddress(addresses);
 
             clientService.saveNewClientByPersonObject(newPerson);
+
 
             redirectAttributes.addFlashAttribute("successMessage", "The client was successful added to the database.");
         } catch (PersonCellphoneAlreadyExists | PersonIDAlreadyExists e) {

@@ -47,6 +47,7 @@ public class ClientService
 
     public void saveNewClientByPersonObject(Person person) throws PersonIDAlreadyExists, PersonCellphoneAlreadyExists
     {
+
         if (personRepository.existsById(person.getId())) {
             throw new PersonIDAlreadyExists("This ID is already been used by another person.");
         }
@@ -55,11 +56,15 @@ public class ClientService
             throw new PersonCellphoneAlreadyExists("This cellphone is already been used by another person.");
         }
 
+
         person = personRepository.save(person);
+
 
         Client newClient = new Client();
         newClient.setPerson(person);
         person.setClient(newClient);
+
+
         clientRepository.save(newClient);
 
     }
