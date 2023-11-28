@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Table(name="manager")
 @Getter
 @Setter
-public class Manager extends Employee implements Serializable {
+public class Manager implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

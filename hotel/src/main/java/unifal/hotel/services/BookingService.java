@@ -3,6 +3,7 @@ package unifal.hotel.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import unifal.hotel.entity.Booking;
+import unifal.hotel.exceptions.ConflictBookingDates;
 import unifal.hotel.repository.jparepository.BookingRepository;
 
 @Service
@@ -16,7 +17,7 @@ public class BookingService
         this.bookingRepository = bookingRepository;
     }
 
-    public Boolean saveBooking(Booking booking)
+    public void saveBooking(Booking booking) throws ConflictBookingDates
     {
         boolean exits = bookingRepository.existsConflictingBooking(
                 booking.getRoom().getId(),
@@ -24,12 +25,11 @@ public class BookingService
                 booking.getCheckout()
         );
 
-        if(!exits) {
-            bookingRepository.save(booking);
-            return Boolean.TRUE;
-        }
+        if(exits)
+            throw new ConflictBookingDates("This room already is reserved from " + booking.getCheckin().toString() + " to " + booking.getCheckout().toString());
 
-        return Boolean.FALSE;
+
+        bookingRepository.save(booking);
     }
 
 }

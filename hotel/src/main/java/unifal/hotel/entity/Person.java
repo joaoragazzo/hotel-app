@@ -38,4 +38,11 @@ public class Person implements Serializable {
     @OneToOne(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
     private Employee employee;
 
+    public Address getMainAddress()
+    {
+        if (this.address.isEmpty()) return null;
+
+        return this.address.iterator().next();
+    }
+
 }

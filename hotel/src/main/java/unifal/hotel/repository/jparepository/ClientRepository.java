@@ -9,4 +9,5 @@ public interface ClientRepository extends JpaRepository<Client, Long>
 {
 
     public Integer deleteByPersonId(Long PersonId);
+
 }

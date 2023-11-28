@@ -25,4 +25,5 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client")
     private Set<Booking> booking;
 
+
 }

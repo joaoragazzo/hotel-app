@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Table(name="receptionist")
 @Getter
 @Setter
-public class Receptionist extends Employee implements Serializable {
+public class Receptionist implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

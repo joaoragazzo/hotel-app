@@ -9,7 +9,7 @@ import unifal.hotel.exceptions.PersonIDAlreadyExists;
 import unifal.hotel.repository.jparepository.ClientRepository;
 import unifal.hotel.repository.jparepository.PersonRepository;
 
-import java.sql.SQLException;
+import java.util.*;
 
 @Service
 public class ClientService
@@ -48,25 +48,42 @@ public class ClientService
     public void saveNewClientByPersonObject(Person person) throws PersonIDAlreadyExists, PersonCellphoneAlreadyExists
     {
 
+
+
         if (personRepository.existsById(person.getId())) {
             throw new PersonIDAlreadyExists("This ID is already been used by another person.");
         }
 
         if (personRepository.existsByCellphone(person.getCellphone())) {
+
             throw new PersonCellphoneAlreadyExists("This cellphone is already been used by another person.");
         }
 
 
         person = personRepository.save(person);
 
-
         Client newClient = new Client();
         newClient.setPerson(person);
         person.setClient(newClient);
 
-
         clientRepository.save(newClient);
 
     }
+
+    public ArrayList<Person> getAllClientsPersonObject()
+    {
+        Set<Client> clients = new HashSet<Client>(clientRepository.findAll());
+        ArrayList<Person> persons = new ArrayList<>();
+
+
+        for(Client client:clients) {
+            persons.add(client.getPerson());
+        }
+
+        persons.sort(Comparator.comparing(Person::getId));
+
+        return persons;
+    }
+
 
 }

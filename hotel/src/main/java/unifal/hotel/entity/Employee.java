@@ -11,7 +11,6 @@ import java.util.Date;
 
 @Setter
 @Getter
-@Inheritance(strategy = InheritanceType.JOINED)
 @Entity
 @Table(name="employee")
 public class Employee implements Serializable {
@@ -21,13 +20,13 @@ public class Employee implements Serializable {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name="person_id")
+    @PrimaryKeyJoinColumn
     private Person person;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", optional = true)
     private Manager manager;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", optional = true)
     private Receptionist receptionist;
 
     private Date hire_date;

@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hotel Client Registration Form</title>
+<title>Hotel Client Edit Form</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -100,7 +100,7 @@
 <body>
 <div class="container">
   <h2>Hotel Hotel</h2>
-  <form action="#" th:action="@{/home/clients/register}" th:object="${RegisterDTO}" method="POST">
+  <form action="#" th:action="@{/home/clients/edit}" th:object="${RegisterDTO}" method="POST">
     <div class="form-row">
       <div class="form-group">
         <input type="text" th:field="*{person.name}" placeholder="Name" required>
@@ -110,12 +110,12 @@
       </div>
       
       <div class="form-group">
-        <input id="idField" type="text" placeholder="ID" maxlength="14" minlength="14" required>
+        <input id="idField" type="text" placeholder="ID" maxlength="14" minlength="14" required disabled th:value="${@idFormatter.format(RegisterDTO.person.id)}">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group">
-        <input type="text" id="cellphoneField" placeholder="Cellphone" maxlength="16" minlength="16" required>
+        <input type="text" id="cellphoneField" placeholder="Cellphone" maxlength="16" minlength="16" required th:value="${@phoneFormatter.format(RegisterDTO.person.cellphone)}">
       </div>
       <div class="form-group">
         <select name="option" th:field="*{person.gender}" required>
@@ -150,7 +150,7 @@
     </div>
     <div class="form-row">
       <div class="form-group">
-        <input type="text" id="zipcodeField" placeholder="ZipCode" maxlength="9" minlength="9" required>
+        <input type="text" id="zipcodeField" placeholder="ZipCode" maxlength="9" minlength="9" required th:value="${@ZIPCodeFormatter.format(RegisterDTO.address.zipcode)}">
       </div>
     </div>
     <input type="hidden" th:field="*{address.zipcode}" />
@@ -159,7 +159,7 @@
 
     <div class="form-footer">
       <button type="button">Return</button>
-      <button type="submit">Enter</button>
+      <button type="submit">Save</button>
     </div>
   </form>
 </div>

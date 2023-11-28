@@ -29,13 +29,7 @@ public class JPATesting
     @Autowired
     private PersonService personService;
 
-    @GetMapping("/debug/test-jpa")
-    public ModelAndView jpa_test()
-    {
-        ModelAndView mv = new ModelAndView("index");
-        mv.addObject("people", personRepository.findAll());
-        return mv;
-    }
+
 
     @DeleteMapping ("/debug/delete-client/{id}")
     public ResponseEntity<?> deleteClient(@PathVariable Long id)
@@ -52,22 +46,5 @@ public class JPATesting
         return mv;
     }
 
-    @PostMapping("/debug/register")
-    public String processarRegistro(@ModelAttribute("register") PersonAddressRegisterDTO registro)
-    {
 
-        Person person = registro.getPerson();
-        Address address = registro.getAddress();
-
-        System.out.println(address.getZipcode());
-
-        Set<Address> addresses = new HashSet<>();
-        address.setPerson(person);
-        addresses.add(address);
-        person.setAddress(addresses);
-
-        personRepository.save(person);
-
-        return "index";
-    }
 }
