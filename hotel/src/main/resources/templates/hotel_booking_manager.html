@@ -73,11 +73,17 @@
   </table>
   <br>
   <div class="form-footer">
+    <button type="button" id="returnButton">Return</button>
     <button type="button">Enter</button>
   </div>
 </div>
 <div class="footer">
     <p>Address | Contact</p>
   </div>
+  <script>
+    document.getElementById("returnButton").onclick = function() {
+  window.history.back(); 
+  }
+  </script>
 </body>
 </html>

@@ -113,7 +113,7 @@
       </div>
     </div>
       <div class="form-footer">
-        <button type="button">Return</button>
+        <button type="button" id="returnButton">Return</button>
         <button type="submit">Enter</button>
       </div>
       </form>
@@ -121,5 +121,10 @@
 <div class="footer">
   <p>Address | Contact</p>
 </div>
+<script>
+  document.getElementById("returnButton").onclick = function() {
+  window.history.back(); 
+  }
+</script>
 </body>
 </html>
