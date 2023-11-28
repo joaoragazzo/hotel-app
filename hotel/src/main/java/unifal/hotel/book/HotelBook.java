@@ -82,8 +82,8 @@ public class HotelBook {
             // language=SQL
             "CREATE TABLE room(" +
                     "id INT NOT NULL AUTO_INCREMENT UNIQUE," +
-                    "type INT(1) NOT NULL," +
-                    "rate INT NOT NULL," +
+                    "type VARCHAR(1) NOT NULL," +
+                    "rent INT NOT NULL," +
                     "PRIMARY KEY (id)" +
                     ");";
 
@@ -142,7 +142,7 @@ public class HotelBook {
 
     public final static String INSERT_NEW_ROOM =
             //language=SQL
-            "INSERT INTO room(id, type, rate) VALUES (NULL, ?, ?);";
+            "INSERT INTO room(id, type, rent) VALUES (NULL, ?, ?);";
 
     public final static String INSERT_NEW_BOOKING =
             //language=SQL

@@ -66,6 +66,16 @@
     padding-top: 20px;
     color: white;
   }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
 </style>
 </head>
 <body>
@@ -74,20 +84,34 @@
   <form>
     <div class="form-row">
       <div class = "form-group">
-        <input type="text" placeholder="Client ID">
+        <input type="number" placeholder="Client ID" list="clients-ids" maxlength="11" minlength="11">
+        <datalist id="clients-ids" >
+          <option data-th-each="client : ${clients}" data-th-value="${client.id}" data-th-text="${client.id}"></option>
+        </datalist>
       </div>
       <div class="form-group">
-        <input type="text" placeholder="Room ID">
+        <input type="number" placeholder="Room ID" list="clan-ids">
+        <datalist id="clan-ids">
+          <option data-th-each="room: ${rooms}" data-th-value="${room.id}" data-th-text="${room.id}"></option>
+        </datalist>
       </div>
     </div>
       <div class="form-row">
+        <div class="form-group">
+          <input type="date" placeholder="Check In">
+        </div>
+        <div class="form-group">
+          <input type="date" placeholder="Check Out">
+        </div>
+      </div>
+    <div class="form-row">
       <div class="form-group">
-        <input type="text" placeholder="Check In">
+        <input type="text" placeholder="Room type" disabled>
       </div>
       <div class="form-group">
-        <input type="text" placeholder="Check Out">
+        <input type="text" placeholder="Rent" disabled>
       </div>
-      </div>
+    </div>
       <div class="form-footer">
         <button type="button">Return</button>
         <button type="submit">Enter</button>

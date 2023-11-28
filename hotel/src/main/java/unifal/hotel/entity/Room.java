@@ -18,6 +18,6 @@ public class Room implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private RoomType room_type;
+    private String type;
     private Integer rent;
 }

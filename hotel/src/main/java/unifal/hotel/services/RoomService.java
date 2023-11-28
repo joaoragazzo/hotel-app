@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import unifal.hotel.entity.Room;
 import unifal.hotel.repository.jparepository.RoomRepository;
 
+import java.util.List;
+
 @Service
 public class RoomService
 {
@@ -19,6 +21,11 @@ public class RoomService
     public Room saveRoom(Room room)
     {
         return roomRepository.save(room);
+    }
+
+    public List<Room> getAllRooms()
+    {
+        return roomRepository.findAll();
     }
 
 }
