@@ -1,6 +1,5 @@
 package unifal.hotel.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,7 +41,7 @@ public class BookingController
     @GetMapping("/home/booking")
     public ModelAndView booking()
     {
-        ModelAndView mv = new ModelAndView("hotel_bookingpage");
+        ModelAndView mv = new ModelAndView("hotel_booking_page");
 
         return mv;
     }

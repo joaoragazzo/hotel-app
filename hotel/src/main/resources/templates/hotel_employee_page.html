@@ -129,7 +129,7 @@ img {
   <div class="container text-center" style="margin: 0;">
     <div class="row">
       <div class="col login">
-        <button id="loginButton" type="button"  class="btn btn-secondary login">User</button>
+        <button id="loginButton" type="button"  class="btn btn-secondary">User</button>
       </div>
       <div class="col-6 title">
         <h1>Hotel Hotel</h1>
@@ -143,14 +143,14 @@ img {
     <div class="card-container">
         <div class="card">
           <div class="image">  
-          <img src="Images/hotel_logo.png" alt="Register Client" class="card-logo">
+          <img src="/images/hotel_logo.png" alt="Client" class="card-logo">
           </div>
-          <h3>Register Client</h3>
+          <h3>Client</h3>
           <button id="registerClientButton" type="button">Enter</button>
         </div>
         <div class="card">
             <div class="image">
-          <img src="Images/hotel_logo.png" alt="Booking" class="card-logo">
+          <img src="/images/hotel_logo.png" alt="Booking" class="card-logo">
         </div>
           <h3>Booking</h3>
           <button id="bookingButton" type="button">Enter</button>
@@ -165,11 +165,11 @@ img {
 <script src="scripts/script.js"></script>
 <script>
   document.getElementById("registerClientButton").onclick = function() {
-    location.href = "hotel_client_register.html"; 
+    location.href = "/home/client";
   }
 
   document.getElementById("bookingButton").onclick = function() {
-    location.href = "hotel_bookingpage.html"; 
+    location.href = "/home/booking";
   }
 </script>
 </body>

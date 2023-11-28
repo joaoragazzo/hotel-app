@@ -2,6 +2,7 @@ package unifal.hotel.controllers;
 
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +37,7 @@ public class ClientController
     }
 
 
-    @GetMapping("/home/clients/register")
+    @GetMapping("/home/client/register")
     public ModelAndView registerNewClientForm()
     {
         ModelAndView mv = new ModelAndView("hotel_client_register");
@@ -44,7 +45,7 @@ public class ClientController
         return mv;
     }
 
-    @PostMapping("/home/clients/register")
+    @PostMapping("/home/client/register")
     public String registerNewClientRegister(@ModelAttribute("RegisterDTO") PersonAddressRegisterDTO data, RedirectAttributes redirectAttributes)
     {
         try {
@@ -70,7 +71,7 @@ public class ClientController
         return "redirect:/home/clients/register";
     }
 
-    @GetMapping("/home/clients")
+    @GetMapping("/home/client/manager")
     public ModelAndView viewAllClients()
     {
         ModelAndView mv = new ModelAndView("hotel_client_manager");
@@ -80,7 +81,7 @@ public class ClientController
         return mv;
     }
 
-    @GetMapping("/home/clients/edit/{id}")
+    @GetMapping("/home/client/edit/{id}")
     public ModelAndView editClient(@PathVariable String id)
     {
         ModelAndView mv = new ModelAndView("hotel_client_edit");
@@ -97,7 +98,7 @@ public class ClientController
         return mv;
     }
 
-    @PostMapping("/home/clients/edit")
+    @PostMapping("/home/client/edit")
     public String editClientSave(@ModelAttribute("RegisterDTO") PersonAddressRegisterDTO data, RedirectAttributes redirectAttributes)
     {
         try {
@@ -121,11 +122,19 @@ public class ClientController
         return "redirect:/home/clients/edit/" + data.getPerson().getId().toString();
     }
 
-    @GetMapping("/home/clients/delete/{id}")
+    @GetMapping("/home/client/delete/{id}")
     public String deleteClient(@PathVariable String id)
     {
         personService.deletePerson(Long.parseLong(id));
 
         return "redirect:/home/clients";
+    }
+
+    @GetMapping("/home/client")
+    public ModelAndView client()
+    {
+        ModelAndView mv = new ModelAndView("hotel_client_page");
+
+        return mv;
     }
 }

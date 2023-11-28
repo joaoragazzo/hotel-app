@@ -27,8 +27,8 @@
     
   }
   .login {
-    text-align: left !important;
-    padding-left: 0;
+      text-align: left !important;
+      padding-left: 0;
   }
   .home {
     text-align: right !important;
@@ -75,7 +75,6 @@
     margin: 10px;
   }
 
-  /* Add this to your <style> tag */
 .card-container {
   display: flex;
   padding: 20px;
@@ -129,7 +128,7 @@ img {
   <div class="container text-center" style="margin: 0;">
     <div class="row">
       <div class="col login">
-        <button id="loginButton" type="button"  class="btn btn-secondary login">User</button>
+        <button type="button" class="btn btn-secondary">User</button>
       </div>
       <div class="col-6 title">
         <h1>Hotel Hotel</h1>
@@ -143,14 +142,14 @@ img {
     <div class="card-container">
         <div class="card">
           <div class="image">  
-          <img src="Images/hotel_logo.png" alt="Client Management" class="card-logo">
+          <img src="/images/hotel_logo.png" alt="Client Management" class="card-logo">
           </div>
           <h3>Booking Register</h3>
           <button id="bookingRegisterButton" type="button">Enter</button>
         </div>
         <div class="card">
             <div class="image">
-          <img src="Images/hotel_logo.png" alt="Employee Management" class="card-logo">
+          <img src="/images/hotel_logo.png" alt="Employee Management" class="card-logo">
         </div>
           <h3>Booking Management</h3>
           <button id="bookingManagementButton" type="button">Enter</button>
@@ -165,7 +164,7 @@ img {
 <script src="scripts/script.js"></script>
 <script>
  document.getElementById("homeButton").onclick = function() {
-     window.history.back();
+     location.href = "/home";
   }
 
  document.getElementById("bookingRegisterButton").onclick = function() {
