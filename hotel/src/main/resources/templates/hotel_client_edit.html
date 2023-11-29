@@ -1,141 +1,190 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hotel Client Edit Form</title>
-  <link href="/css/main.css" rel="stylesheet">
-  <link href="/css/form.css" rel="stylesheet">
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Client Edit Form</title>
+    <style>
 
-  body {
-    padding: 50px;
-  }
+        body {
+            font-family: Arial, sans-serif;
+            background: #686767;
+            margin: 0;
+            padding: 50px;
+        }
 
-  h2 {
-    text-align: center;
-    color: #333;
-  }
-  .form-group {
-    margin-bottom: 10px;
-    display: flex;
-  }
-  .form-group label {
-    flex: 1;
-    padding: 10px;
-  }
-  .form-group input {
-    flex: 2;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  .form-group select {
-    flex: 2;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background: white;
-    color: #333;
-  }
-  .form-row {
-    display: flex;
-  }
-  .form-row .form-group {
-    flex: 1;
-  }
-  .form-row .form-group:not(:last-child) {
-    margin-right: 10px;
-  }
-  .form-footer {
-    text-align: right;
-  }
-  .form-footer button {
-    padding: 10px 30px;
-    background: #333;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+        .container {
+            background: white;
+            width: 80%;
+            max-width: fit-content;
+            max-height: fit-content;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .warning {
+            background: #d59a9a;
+            margin-top: 20px;
+        }
+
+        .success {
+            background: #b7d59a;
+            margin-top: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+            display: flex;
+        }
+
+        .form-group label {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .form-group input {
+            flex: 2;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-group select {
+            flex: 2;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            color: #333;
+        }
+
+        .form-row {
+            display: flex;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .form-row .form-group:not(:last-child) {
+            margin-right: 10px;
+        }
+
+        .form-footer {
+            text-align: right;
+        }
+
+        .form-footer button {
+            padding: 10px 30px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            color: white;
+        }
 
 
-</style>
+    </style>
 </head>
 <body>
 <div class="container">
-  <h2>Hotel Hotel</h2>
-  <form action="#" th:action="@{/home/client/edit}" th:object="${RegisterDTO}" method="POST">
-    <div class="form-row">
-      <div class="form-group">
-        <input type="text" th:field="*{person.name}" placeholder="Name" required>
-      </div>
-      <div class="form-group">
-        <input type="text" th:field="*{person.surname}" placeholder="Surname" required>
-      </div>
-      
-      <div class="form-group">
-        <input id="idField" type="text" placeholder="ID" maxlength="14" minlength="14" required disabled th:value="${@idFormatter.format(RegisterDTO.person.id)}">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <input type="text" id="cellphoneField" placeholder="Cellphone" maxlength="16" minlength="16" required th:value="${@phoneFormatter.format(RegisterDTO.person.cellphone)}">
-      </div>
-      <div class="form-group">
-        <select name="option" th:field="*{person.gender}" required>
-          <option th:value="M">Male</option>
-          <option th:value="F">Female</option>
-          <option th:value="O">Other</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <input type="date" th:field="*{person.birthdate}" placeholder="BirthDate" required>
-      </div>
-    
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <input type="text" th:field="*{address.city}" placeholder="City" required>
-      </div>
-      <div class="form-group">
-        <input type="text" th:field="*{address.country}" placeholder="Country" required>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <input type="text" th:field="*{address.street}" placeholder="Street" required>
-      </div>
-      <div class="form-group">
-        <input type="text" th:field="*{address.neighborhood}" placeholder="Neighborhood" required>
-      </div>
-      <div class="form-group">
-        <input type="text" th:field="*{address.state}" placeholder="State" maxlength="2" minlength="2" required>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <input type="text" id="zipcodeField" placeholder="ZipCode" maxlength="9" minlength="9" required th:value="${@ZIPCodeFormatter.format(RegisterDTO.address.zipcode)}">
-      </div>
-    </div>
-    <input type="hidden" th:field="*{address.zipcode}" />
-    <input type="hidden" th:field="*{person.id}" />
-    <input type="hidden" th:field="*{person.cellphone}" />
+    <h2>Hotel Hotel</h2>
+    <form action="#" th:action="@{/home/client/edit}" th:object="${RegisterDTO}" method="POST">
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" th:field="*{person.name}" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+                <input type="text" th:field="*{person.surname}" placeholder="Surname" required>
+            </div>
 
-    <div class="form-footer">
-      <button type="button">Return</button>
-      <button type="submit">Save</button>
-    </div>
-  </form>
+            <div class="form-group">
+                <input id="idField" type="text" placeholder="ID" maxlength="14" minlength="14" required disabled
+                       th:value="${@idFormatter.format(RegisterDTO.person.id)}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" id="cellphoneField" placeholder="Cellphone" maxlength="16" minlength="16" required
+                       th:value="${@phoneFormatter.format(RegisterDTO.person.cellphone)}">
+            </div>
+            <div class="form-group">
+                <select name="option" th:field="*{person.gender}" required>
+                    <option th:value="M">Male</option>
+                    <option th:value="F">Female</option>
+                    <option th:value="O">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="date" th:field="*{person.birthdate}" placeholder="BirthDate" required>
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" th:field="*{address.city}" placeholder="City" required>
+            </div>
+            <div class="form-group">
+                <input type="text" th:field="*{address.country}" placeholder="Country" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" th:field="*{address.street}" placeholder="Street" required>
+            </div>
+            <div class="form-group">
+                <input type="text" th:field="*{address.neighborhood}" placeholder="Neighborhood" required>
+            </div>
+            <div class="form-group">
+                <input type="text" th:field="*{address.state}" placeholder="State" maxlength="2" minlength="2" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" id="zipcodeField" placeholder="ZipCode" maxlength="9" minlength="9" required
+                       th:value="${@ZIPCodeFormatter.format(RegisterDTO.address.zipcode)}">
+            </div>
+        </div>
+        <input type="hidden" th:field="*{address.zipcode}"/>
+        <input type="hidden" th:field="*{person.id}"/>
+        <input type="hidden" th:field="*{person.cellphone}"/>
+
+        <div class="form-footer">
+            <button type="button">Return</button>
+            <button type="submit">Save</button>
+        </div>
+    </form>
 </div>
 
 <div class="container success" th:if="${successMessage}">
-  <p th:text="${successMessage}">SuccessMessage</p>
+    <p th:text="${successMessage}">SuccessMessage</p>
 </div>
 
 <div class="container warning" th:if="${errorMessage}">
-  <p th:text="${errorMessage}">ErrorMessage</p>
+    <p th:text="${errorMessage}">ErrorMessage</p>
 </div>
 
 <div class="footer">
@@ -143,56 +192,56 @@
 </div>
 
 <script>
-  document.getElementById('idField').addEventListener('input', function (e) {
-    var value = e.target.value;
-    value = value.replace(/\D/g, "");
-    value = value.replace(/(\d{3})(\d)/, "$1.$2");
-    value = value.replace(/(\d{3})(\d)/, "$1.$2");
-    value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-    e.target.value = value;
-  });
+    document.getElementById('idField').addEventListener('input', function (e) {
+        var value = e.target.value;
+        value = value.replace(/\D/g, "");
+        value = value.replace(/(\d{3})(\d)/, "$1.$2");
+        value = value.replace(/(\d{3})(\d)/, "$1.$2");
+        value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+        e.target.value = value;
+    });
 
-  document.getElementById('idField').addEventListener('input', function (e) {
-    let value = e.target.value;
-    const unformattedValue = value.replace(/\D/g, "");
+    document.getElementById('idField').addEventListener('input', function (e) {
+        let value = e.target.value;
+        const unformattedValue = value.replace(/\D/g, "");
 
-    value = unformattedValue.replace(/(\d{3})(\d)/, "$1.$2");
-    value = value.replace(/(\d{3})(\d)/, "$1.$2");
-    value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-    e.target.value = value;
+        value = unformattedValue.replace(/(\d{3})(\d)/, "$1.$2");
+        value = value.replace(/(\d{3})(\d)/, "$1.$2");
+        value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+        e.target.value = value;
 
-    document.querySelector('input[name="person.id"]').value = unformattedValue;
-  });
+        document.querySelector('input[name="person.id"]').value = unformattedValue;
+    });
 
-  document.getElementById('cellphoneField').addEventListener('input', function (e) {
-    let value = e.target.value.replace(/\D/g, '');
+    document.getElementById('cellphoneField').addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, '');
 
-    if (value.length > 2) {
-      value = '(' + value.substring(0, 2) + ') ' + value.substring(2);
-    }
-    if (value.length > 6) {
-      value = value.substring(0, 6) + '.' + value.substring(6);
-    }
-    if (value.length > 11) {
-      value = value.substring(0, 11) + '-' + value.substring(11, 17);
-    }
+        if (value.length > 2) {
+            value = '(' + value.substring(0, 2) + ') ' + value.substring(2);
+        }
+        if (value.length > 6) {
+            value = value.substring(0, 6) + '.' + value.substring(6);
+        }
+        if (value.length > 11) {
+            value = value.substring(0, 11) + '-' + value.substring(11, 17);
+        }
 
-    e.target.value = value;
+        e.target.value = value;
 
-    document.querySelector('input[name="person.cellphone"]').value = value.replace(/\D/g, '');
-  });
+        document.querySelector('input[name="person.cellphone"]').value = value.replace(/\D/g, '');
+    });
 
-  document.getElementById('zipcodeField').addEventListener('input', function (e) {
-    let value = e.target.value.replace(/\D/g, '');
+    document.getElementById('zipcodeField').addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, '');
 
-    if (value.length > 5) {
-      value = value.substring(0, 5) + '-' + value.substring(5, 8);
-    }
+        if (value.length > 5) {
+            value = value.substring(0, 5) + '-' + value.substring(5, 8);
+        }
 
-    e.target.value = value;
+        e.target.value = value;
 
-    document.querySelector('input[name="address.zipcode"]').value = value.replace(/\D/g, '');
-  });
+        document.querySelector('input[name="address.zipcode"]').value = value.replace(/\D/g, '');
+    });
 
 </script>
 </body>

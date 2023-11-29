@@ -1,150 +1,168 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hotel Registration Form</title>
-  <link href="/css/main.css" rel="stylesheet">
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Registration Form</title>
+    <style>
 
-  body {
-    padding: 50px;
-  }
+        body {
+            font-family: Arial, sans-serif;
+            background: #686767;
+            margin: 0;
+            padding: 50px;
+        }
 
-  h2 {
-    text-align: center;
-    color: #333;
-  }
+        .container {
+            background: white;
+            width: 80%;
+            max-width: fit-content;
+            max-height: fit-content;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-  .form-group {
-    margin-bottom: 10px;
-    display: flex;
-  }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
 
-  .form-group label {
-    flex: 1;
-    padding: 10px;
-  }
+        .form-group {
+            margin-bottom: 10px;
+            display: flex;
+        }
 
-  .form-group input {
-    flex: 2;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
+        .form-group label {
+            flex: 1;
+            padding: 10px;
+        }
 
-  .form-row {
-    display: flex;
-  }
+        .form-group input {
+            flex: 2;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
 
-  .form-row .form-group {
-    flex: 1;
-  }
+        .form-row {
+            display: flex;
+        }
 
-  .form-row .form-group:not(:last-child) {
-    margin-right: 10px;
-  }
+        .form-row .form-group {
+            flex: 1;
+        }
 
-  .form-footer {
-    text-align: right;
-  }
+        .form-row .form-group:not(:last-child) {
+            margin-right: 10px;
+        }
 
-  .form-footer button {
-    padding: 10px 30px;
-    background: #333;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+        .form-footer {
+            text-align: right;
+        }
 
-</style>
+        .form-footer button {
+            padding: 10px 30px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            color: white;
+        }
+
+    </style>
 </head>
 <body>
 <div class="container">
-  <h2>Hotel Hotel - Register Employee</h2>
-  <form>
-    <div class="form-row">
-      <div class="form-group">
-        <input type="email" placeholder="Email">
-      </div>
-      <div class="form-group">
-        <input type="password" placeholder="Password">
-      </div>
-      <div class="form-group">
-        <input type="password" placeholder="Confirm Password">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <input type="text" placeholder="Name">
-      </div>
-      <div class="form-group">
-        <input type="text" placeholder="Surname">
-      </div>
-      <div class="form-group">
-        <input type="text" placeholder="ID">
-      </div>
-      </div>
-    <div class="form-row">
-      <div class="form-group">
-        <input type="text" placeholder="BirthDate">
-      </div>
-      <div class="form-group">
-        <input type="text" placeholder="Gender">
-      </div>
-      <div class="form-group">
-        <input type="tel" placeholder="Cellphone">
-      </div>
-    </div>
-    <br>
-    <div class="form-row">
-      <div class="form-group">
-        <input type="text" placeholder="City">
-      </div>
-      <div class="form-group">
-        <input type="text" placeholder="Country">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <input type="text" placeholder="Street">
-      </div>
-      <div class="form-group">
-        <input type="text" placeholder="Neighborhood">
-      </div>
-      <div class="form-group">
-        <input type="text" placeholder="State">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <input type="text" placeholder="ZipCode">
-      </div>
-    </div>
-    <br>
-    <div class="form-row">
-      <div class="form-group">
-        <input type="text" placeholder="Hire Date">
-      </div>
-      <div class="form-group">
-        <input type="text" placeholder="Salary">
-      </div>
-    </div>
-    <div class="form-footer">
-      <button type="button" id="returnButton">Return</button>
-      <button type="submit">Enter</button>
-    </div>
-  </form>
+    <h2>Hotel Hotel - Register Employee</h2>
+    <form>
+        <div class="form-row">
+            <div class="form-group">
+                <input type="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input type="password" placeholder="Confirm Password">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Surname">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="ID">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" placeholder="BirthDate">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Gender">
+            </div>
+            <div class="form-group">
+                <input type="tel" placeholder="Cellphone">
+            </div>
+        </div>
+        <br>
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" placeholder="City">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Country">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" placeholder="Street">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Neighborhood">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="State">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" placeholder="ZipCode">
+            </div>
+        </div>
+        <br>
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" placeholder="Hire Date">
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Salary">
+            </div>
+        </div>
+        <div class="form-footer">
+            <button type="button" id="returnButton">Return</button>
+            <button type="submit">Enter</button>
+        </div>
+    </form>
 </div>
 <div class="footer">
-  <p>Address | Contact</p>
+    <p>Address | Contact</p>
 </div>
 <script>
-  document.getElementById("returnButton").onclick = function() {
-  window.history.back(); 
-  }
+    document.getElementById("returnButton").onclick = function () {
+        window.history.back();
+    }
 </script>
 </body>
 </html>
