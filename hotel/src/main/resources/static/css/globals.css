@@ -76,3 +76,10 @@ td a button {
     border-radius: 9px;
     margin: 0;
 }
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    color: white;
+}
