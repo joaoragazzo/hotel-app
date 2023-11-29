@@ -83,3 +83,14 @@ td a button {
     padding-top: 20px;
     color: white;
 }
+
+
+img {
+    width: 50%;
+    height: 50%;
+    text-align: center;
+}
+
+.image {
+    text-align: center;
+}
