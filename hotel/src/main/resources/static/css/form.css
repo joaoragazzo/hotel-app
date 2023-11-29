@@ -1,0 +1,19 @@
+.warning {
+    background: #d59a9a;
+    margin-top: 20px;
+}
+
+.success {
+    background: #b7d59a;
+    margin-top: 20px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}

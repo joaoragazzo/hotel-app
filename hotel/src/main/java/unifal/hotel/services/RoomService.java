@@ -6,6 +6,8 @@ import unifal.hotel.entity.Room;
 import unifal.hotel.repository.jparepository.RoomRepository;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class RoomService
@@ -26,6 +28,14 @@ public class RoomService
     public List<Room> getAllRooms()
     {
         return roomRepository.findAll();
+    }
+
+    public Room getRoomById(Long id)
+    {
+        Optional<Room> room = roomRepository.findById(id);
+
+        return room.orElse(null);
+
     }
 
 }

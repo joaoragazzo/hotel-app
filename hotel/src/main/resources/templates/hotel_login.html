@@ -5,13 +5,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hotel Registration Form</title>
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/form.css" rel="stylesheet">
 <style>
+
   body {
-    font-family: Arial, sans-serif;
-    background: #686767;
-    margin: 0;
     padding: 50px;
   }
+
   .container {
     background: white;
     width: 80%;
@@ -20,10 +21,7 @@
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  h2 {
-    text-align: center;
-    color: #333;
-  }
+
   .form-group {
     margin-bottom: 10px;
     display: flex;
@@ -32,45 +30,38 @@
     flex: 1;
     padding: 10px;
   }
+
   .form-group input {
     flex: 2;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
   }
-  .form-row {
-    display: flex;
-  }
+
   .form-row .form-group {
-    flex: 1;
+      flex: 1;
   }
   .form-row .form-group:not(:last-child) {
-    margin-right: 10px;
+      margin-right: 10px;
   }
   .form-footer {
-    text-align: right;
+      text-align: right;
   }
   .form-footer button {
-  padding: 10px 30px;
-  margin: 5px; /* Spacing between buttons */
-  background: #333;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
+      padding: 10px 30px;
+      margin: 5px; /* Spacing between buttons */
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
 
-.footer {
-    text-align: center;
-    margin-top: 20px;
-    padding-top: 20px;
-    color: white;
-  }  
 </style>
 </head>
 <body>
 <div class="container">
-    <h2>Hotel Hotel - Login    </h2>
+    <h2>Hotel Hotel - Login</h2>
     <form>
       <div class="form-group">
         <input type="email" name="email" placeholder="Email" required>

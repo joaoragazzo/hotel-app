@@ -2,7 +2,9 @@ package unifal.hotel.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import unifal.hotel.services.ClientService;
 import unifal.hotel.services.RoomService;
 
@@ -38,6 +40,16 @@ public class BookingController
         return mv;
     }
 
+    @PostMapping("/home/booking/save")
+    public String saveNewBooking(RedirectAttributes redirectAttributes)
+    {
+
+
+        // redirectAttributes.addFlashAttribute()
+
+        return "redirect:/home/booking/save";
+    }
+
     @GetMapping("/home/booking")
     public ModelAndView booking()
     {
@@ -45,5 +57,6 @@ public class BookingController
 
         return mv;
     }
+
 
 }
