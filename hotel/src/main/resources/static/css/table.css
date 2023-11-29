@@ -1,0 +1,28 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+td a {
+    text-decoration: none;
+}
+
+td a button {
+    background-color: #3850d3;
+    border-radius: 9px;
+    margin: 0;
+}
+
+.form-footer {
+    text-align: center;
+}
