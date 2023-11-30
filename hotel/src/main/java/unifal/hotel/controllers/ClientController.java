@@ -3,12 +3,14 @@ package unifal.hotel.controllers;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import unifal.hotel.book.ControllerDefaultMessage;
 import unifal.hotel.entity.Address;
 import unifal.hotel.entity.Person;
 import unifal.hotel.exceptions.PersonCellphoneAlreadyExists;
@@ -19,6 +21,7 @@ import unifal.hotel.services.PersonService;
 import unifal.hotel.services.dto.PersonAddressRegisterDTO;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Controller
@@ -36,17 +39,30 @@ public class ClientController
 
 
     @GetMapping({"/home/client/register", "/admin/client/register"})
-    public ModelAndView registerNewClientForm()
+    public String registerNewClientForm(Model model, RedirectAttributes redirectAttributes, HttpSession session)
     {
-        ModelAndView mv = new ModelAndView("hotel_client_register");
-        mv.addObject("RegisterDTO", new PersonAddressRegisterDTO());
-        return mv;
+        if (Objects.isNull(session.getAttribute("role"))) {
+            redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
+            return "redirect:/login";
+        }
+
+        model.addAttribute("RegisterDTO", new PersonAddressRegisterDTO());
+
+        String root = session.getAttribute("role").equals("admin") ? "/admin" : "/home";
+        model.addAttribute("root", root);
+
+        return "hotel_client_register";
     }
 
     @PostMapping({"/home/client/register", "/admin/client/register"})
     public String registerNewClientRegister(@ModelAttribute("RegisterDTO") PersonAddressRegisterDTO data,
                                             RedirectAttributes redirectAttributes, HttpSession session)
     {
+        if (Objects.isNull(session.getAttribute("role"))) {
+            redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
+            return "redirect:/login";
+        }
+
 
         String redirectUrl = session.getAttribute("role").equals("admin") ? "/admin/client/register" :
                 "/home/client/register";
@@ -75,23 +91,34 @@ public class ClientController
     }
 
     @GetMapping({"/home/client/manager", "/admin/client/manager"})
-    public ModelAndView viewAllClients(HttpSession session)
+    public String viewAllClients(Model model, HttpSession session, RedirectAttributes redirectAttributes)
     {
-        ModelAndView mv = new ModelAndView("hotel_client_manager");
+
+        if (Objects.isNull(session.getAttribute("role"))) {
+            redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
+            return "redirect:/login";
+        }
 
         String root = session.getAttribute("role").equals("admin") ? "/admin" : "/home";
 
-        mv.addObject("clientPersonList", clientService.getAllClientsPersonObject());
-        mv.addObject("root", root);
+        model.addAttribute("clientPersonList", clientService.getAllClientsPersonObject());
+        model.addAttribute("root", root);
 
 
-        return mv;
+        return "hotel_client_manager";
     }
 
     @GetMapping({"/home/client/edit/{id}", "/admin/client/edit/{id}"})
-    public ModelAndView editClient(@PathVariable String id)
+    public String editClient(Model model, RedirectAttributes redirectAttributes, HttpSession session, @PathVariable String id)
     {
-        ModelAndView mv = new ModelAndView("hotel_client_edit");
+
+        if (Objects.isNull(session.getAttribute("role"))) {
+            redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
+            return "redirect:/login";
+        }
+
+        String root = session.getAttribute("role").equals("admin") ? "/admin" : "/home";
+        model.addAttribute("root", root);
 
         Person person = personService.getPersonByID(Long.parseLong(id));
 
@@ -100,9 +127,9 @@ public class ClientController
         personAddressRegisterDTO.setAddress(person.getAddress().iterator().next());
         personAddressRegisterDTO.setPerson(person);
 
-        mv.addObject("RegisterDTO", personAddressRegisterDTO);
+        model.addAttribute("RegisterDTO", personAddressRegisterDTO);
 
-        return mv;
+        return "hotel_client_edit";
     }
 
     @PostMapping({"/home/client/edit", "/admin/client/edit"})
@@ -110,6 +137,12 @@ public class ClientController
                                  RedirectAttributes redirectAttributes,
                                  HttpSession session)
     {
+
+        if (Objects.isNull(session.getAttribute("role"))) {
+            redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
+            return "redirect:/login";
+        }
+
         String redirectURL = session.getAttribute("role").equals("admin") ? "/admin/client/edit/" :
                 "/home/client/edit/";
 
@@ -135,8 +168,13 @@ public class ClientController
     }
 
     @GetMapping({"/home/client/delete/{id}", "/admin/client/delete/{id}"})
-    public String deleteClient(@PathVariable String id, HttpSession session)
+    public String deleteClient(@PathVariable String id, HttpSession session, RedirectAttributes redirectAttributes)
     {
+        if (Objects.isNull(session.getAttribute("role"))) {
+            redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
+            return "redirect:/login";
+        }
+
         String redirectURL = session.getAttribute("role").equals("admin") ? "/admin/client/manager" : "/home/client/manager";
 
         personService.deletePerson(Long.parseLong(id));
@@ -145,14 +183,16 @@ public class ClientController
     }
 
     @GetMapping({"/home/client", "/admin/client"})
-    public ModelAndView client(HttpSession session)
+    public String client(Model model, HttpSession session, RedirectAttributes redirectAttributes)
     {
+        if (Objects.isNull(session.getAttribute("role"))) {
+            redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
+            return "redirect:/login";
+        }
+
         String root = session.getAttribute("role").equals("admin") ? "/admin" : "/home";
+        model.addAttribute("root", root);
 
-        ModelAndView mv = new ModelAndView("hotel_client_page");
-
-        mv.addObject("root", root);
-
-        return mv;
+        return "hotel_client_page";
     }
 }

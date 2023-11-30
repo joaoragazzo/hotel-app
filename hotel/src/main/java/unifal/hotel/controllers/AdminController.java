@@ -3,20 +3,28 @@ package unifal.hotel.controllers;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import unifal.hotel.book.ControllerDefaultMessage;
+
+import java.util.Objects;
 
 @Log4j2
 @Controller
 public class AdminController {
     @GetMapping("/admin")
-    public ModelAndView admin(HttpSession session) {
+    public String admin(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 
-        ModelAndView mv = new ModelAndView("hotel_manager_page");
+        if(Objects.isNull(session.getAttribute("role")) || !session.getAttribute("role").equals("admin")) {
 
-        mv.addObject("root", "admin");
+            redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.MANAGER_PERMISSIONS);
+            return "redirect:/login";
+        }
 
-        return mv;
+        model.addAttribute("root", "admin");
+
+        return "hotel_manager_page";
     }
 
 

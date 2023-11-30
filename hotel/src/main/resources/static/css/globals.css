@@ -26,6 +26,10 @@ body {
     width: 312px;
 }
 
+.btn-extra-small {
+    width: 50px;
+}
+
 .btn-style:hover {
     background-color: #555;
 }

@@ -2,12 +2,15 @@ package unifal.hotel.controllers;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import unifal.hotel.book.ControllerDefaultMessage;
 import unifal.hotel.services.ClientService;
 import unifal.hotel.services.RoomService;
+
+import java.util.Objects;
 
 @Controller
 public class BookingController
@@ -22,28 +25,45 @@ public class BookingController
     }
 
     @GetMapping({"/home/booking/register", "/admin/booking/register"})
-    public ModelAndView bookingRegister()
+    public String bookingRegister(Model model, RedirectAttributes redirectAttributes, HttpSession session)
     {
-        ModelAndView mv = new ModelAndView("hotel_booking_register");
+        if(Objects.isNull(session.getAttribute("role"))) {
+            redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
+            return "redirect:/login";
+        }
 
-        mv.addObject("clients", clientService.getAllClientsPersonObject());
-        mv.addObject("rooms", roomService.getAllRooms());
+        String root = session.getAttribute("role").equals("admin") ? "/admin" : "/home";
 
-        return mv;
+        model.addAttribute("clients", clientService.getAllClientsPersonObject());
+        model.addAttribute("rooms", roomService.getAllRooms());
+        model.addAttribute("root", root);
+
+        return "hotel_booking_register";
 
     }
 
     @GetMapping({"/home/booking/manager", "/admin/booking/manager"})
-    public ModelAndView bookingManager()
+    public String bookingManager(Model model, RedirectAttributes redirectAttributes, HttpSession session)
     {
-        ModelAndView mv = new ModelAndView("hotel_booking_manager");
+        if(Objects.isNull(session.getAttribute("role"))) {
+            redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
+            return "redirect:/login";
+        }
 
-        return mv;
+        String root = session.getAttribute("role").equals("admin") ? "/admin" : "/home";
+        model.addAttribute("root", root);
+
+        return "hotel_booking_manager";
     }
 
     @PostMapping({"/home/booking/save", "/admin/booking/save"})
-    public String saveNewBooking(RedirectAttributes redirectAttributes)
+    public String saveNewBooking(RedirectAttributes redirectAttributes, HttpSession session)
     {
+
+        if(Objects.isNull(session.getAttribute("role"))) {
+            redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
+            return "redirect:/login";
+        }
 
 
         // redirectAttributes.addFlashAttribute()
@@ -52,16 +72,18 @@ public class BookingController
     }
 
     @GetMapping({"/home/booking", "/admin/booking"})
-    public ModelAndView booking(HttpSession session)
+    public String booking(Model model, RedirectAttributes redirectAttributes, HttpSession session)
     {
 
+        if(Objects.isNull(session.getAttribute("role"))) {
+            redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
+            return "redirect:/login";
+        }
+
         String root = session.getAttribute("role").equals("admin") ? "/admin" : "/home";
+        model.addAttribute("root", root);
 
-        ModelAndView mv = new ModelAndView("hotel_booking_page");
-
-        mv.addObject("root", root);
-
-        return mv;
+        return "hotel_booking_page";
     }
 
 
