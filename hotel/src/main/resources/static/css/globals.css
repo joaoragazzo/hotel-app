@@ -63,12 +63,12 @@ img {
     width: 50%;
     height: 50%;
     text-align: center;
+    border-radius: 15px;
 }
 
 .image {
     text-align: center;
 }
-
 
 .section h3 {
     margin-top: 0;

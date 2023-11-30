@@ -68,7 +68,7 @@ public class ClientController
             redirectAttributes.addFlashAttribute("errorMessage", "A error happened when trying to register a new client: " + e.getMessage());
         }
 
-        return "redirect:/home/clients/register";
+        return "redirect:/home/client/register";
     }
 
     @GetMapping("/home/client/manager")
@@ -119,7 +119,7 @@ public class ClientController
             redirectAttributes.addFlashAttribute("errorMessage", "A error happened when trying to register a new client: " + e.getMessage());
         }
 
-        return "redirect:/home/clients/edit/" + data.getPerson().getId().toString();
+        return "redirect:/home/client/edit/" + data.getPerson().getId().toString();
     }
 
     @GetMapping("/home/client/delete/{id}")
@@ -127,7 +127,7 @@ public class ClientController
     {
         personService.deletePerson(Long.parseLong(id));
 
-        return "redirect:/home/clients";
+        return "redirect:/home/client";
     }
 
     @GetMapping("/home/client")
