@@ -48,7 +48,7 @@
             <td data-th-text="${@ZIPCodeFormatter.format(person.getMainAddress()?.zipcode)}"
                 style="white-space: nowrap"></td>
             <td style="white-space: nowrap">
-                <a th:href="@{/home/client/edit/{id}(id=${person.id})}">
+                <a th:href="@{{root}/client/edit/{id}(id=${person.id}, root=${root})}">
                     <button>
                         <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0,0,256,256">
                             <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
@@ -62,7 +62,7 @@
                         </svg>
                     </button>
                 </a>
-                <a th:href="@{/home/client/delete/{id}(id=${person.id})}">
+                <a th:href="@{{root}/client/delete/{id}(id=${person.id}, root=${root})}">
                     <button>
                         <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0,0,256,256">
                             <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"

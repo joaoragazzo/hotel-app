@@ -1,11 +1,7 @@
 package unifal.hotel.controllers;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -79,11 +75,15 @@ public class ClientController
     }
 
     @GetMapping({"/home/client/manager", "/admin/client/manager"})
-    public ModelAndView viewAllClients()
+    public ModelAndView viewAllClients(HttpSession session)
     {
         ModelAndView mv = new ModelAndView("hotel_client_manager");
 
+        String root = session.getAttribute("role").equals("admin") ? "/admin" : "/home";
+
         mv.addObject("clientPersonList", clientService.getAllClientsPersonObject());
+        mv.addObject("root", root);
+
 
         return mv;
     }
@@ -147,14 +147,11 @@ public class ClientController
     @GetMapping({"/home/client", "/admin/client"})
     public ModelAndView client(HttpSession session)
     {
-        Boolean isAdmin = session.getAttribute("role").equals("admin");
+        String root = session.getAttribute("role").equals("admin") ? "/admin" : "/home";
 
         ModelAndView mv = new ModelAndView("hotel_client_page");
 
-        if (isAdmin) {
-            //TODO: IMPLEMENTAR
-
-        }
+        mv.addObject("root", root);
 
         return mv;
     }
