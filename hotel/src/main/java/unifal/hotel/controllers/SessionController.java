@@ -1,5 +1,6 @@
 package unifal.hotel.controllers;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,7 @@ public class SessionController {
 
 
     @PostMapping("/login")
-    public String authentication(RedirectAttributes redirectAttributes, Account account) {
+    public String authentication(RedirectAttributes redirectAttributes, Account account, HttpSession session) {
 
         String email = account.getEmail();
         String password = account.getPassword();
@@ -60,9 +61,12 @@ public class SessionController {
         }
 
         if (account_response.getPerson().getEmployee().isReceptionist()) {
+            session.setAttribute("role", "receptionist");
             return "redirect:/home";
         }
 
+
+        session.setAttribute("role", "admin");
         return "redirect:/admin";
     }
 

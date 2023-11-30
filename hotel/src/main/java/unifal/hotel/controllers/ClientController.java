@@ -1,5 +1,7 @@
 package unifal.hotel.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -37,7 +39,7 @@ public class ClientController
     }
 
 
-    @GetMapping("/home/client/register")
+    @GetMapping({"/home/client/register", "/admin/client/register"})
     public ModelAndView registerNewClientForm()
     {
         ModelAndView mv = new ModelAndView("hotel_client_register");
@@ -45,9 +47,14 @@ public class ClientController
         return mv;
     }
 
-    @PostMapping("/home/client/register")
-    public String registerNewClientRegister(@ModelAttribute("RegisterDTO") PersonAddressRegisterDTO data, RedirectAttributes redirectAttributes)
+    @PostMapping({"/home/client/register", "/admin/client/register"})
+    public String registerNewClientRegister(@ModelAttribute("RegisterDTO") PersonAddressRegisterDTO data,
+                                            RedirectAttributes redirectAttributes, HttpSession session)
     {
+
+        String redirectUrl = session.getAttribute("role").equals("admin") ? "/admin/client/register" :
+                "/home/client/register";
+
         try {
             Person newPerson = data.getPerson();
             Address newAddress = data.getAddress();
@@ -68,10 +75,10 @@ public class ClientController
             redirectAttributes.addFlashAttribute("errorMessage", "A error happened when trying to register a new client: " + e.getMessage());
         }
 
-        return "redirect:/home/client/register";
+        return "redirect:" + redirectUrl;
     }
 
-    @GetMapping("/home/client/manager")
+    @GetMapping({"/home/client/manager", "/admin/client/manager"})
     public ModelAndView viewAllClients()
     {
         ModelAndView mv = new ModelAndView("hotel_client_manager");
@@ -81,7 +88,7 @@ public class ClientController
         return mv;
     }
 
-    @GetMapping("/home/client/edit/{id}")
+    @GetMapping({"/home/client/edit/{id}", "/admin/client/edit/{id}"})
     public ModelAndView editClient(@PathVariable String id)
     {
         ModelAndView mv = new ModelAndView("hotel_client_edit");
@@ -98,9 +105,14 @@ public class ClientController
         return mv;
     }
 
-    @PostMapping("/home/client/edit")
-    public String editClientSave(@ModelAttribute("RegisterDTO") PersonAddressRegisterDTO data, RedirectAttributes redirectAttributes)
+    @PostMapping({"/home/client/edit", "/admin/client/edit"})
+    public String editClientSave(@ModelAttribute("RegisterDTO") PersonAddressRegisterDTO data,
+                                 RedirectAttributes redirectAttributes,
+                                 HttpSession session)
     {
+        String redirectURL = session.getAttribute("role").equals("admin") ? "/admin/client/edit/" :
+                "/home/client/edit/";
+
         try {
             Person newPerson = data.getPerson();
             Address newAddress = data.getAddress();
@@ -119,21 +131,30 @@ public class ClientController
             redirectAttributes.addFlashAttribute("errorMessage", "A error happened when trying to register a new client: " + e.getMessage());
         }
 
-        return "redirect:/home/client/edit/" + data.getPerson().getId().toString();
+        return "redirect:" + redirectURL + data.getPerson().getId().toString();
     }
 
-    @GetMapping("/home/client/delete/{id}")
-    public String deleteClient(@PathVariable String id)
+    @GetMapping({"/home/client/delete/{id}", "/admin/client/delete/{id}"})
+    public String deleteClient(@PathVariable String id, HttpSession session)
     {
+        String redirectURL = session.getAttribute("role").equals("admin") ? "/admin/client/manager" : "/home/client/manager";
+
         personService.deletePerson(Long.parseLong(id));
 
-        return "redirect:/home/client";
+        return "redirect:" + redirectURL;
     }
 
-    @GetMapping("/home/client")
-    public ModelAndView client()
+    @GetMapping({"/home/client", "/admin/client"})
+    public ModelAndView client(HttpSession session)
     {
+        Boolean isAdmin = session.getAttribute("role").equals("admin");
+
         ModelAndView mv = new ModelAndView("hotel_client_page");
+
+        if (isAdmin) {
+            //TODO: IMPLEMENTAR
+
+        }
 
         return mv;
     }

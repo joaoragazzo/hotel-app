@@ -4,6 +4,29 @@ body {
     margin: 0;
 }
 
+.btn-style {
+    display: inline-block; /* Faz com que se comporte como um botão */
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none; /* Remove o sublinhado do link */
+}
+
+.btn-large {
+    width: 481px;
+}
+
+.btn-style:hover {
+    background-color: #555;
+}
+
+
 h1 {
     margin: 0;
     padding-top: 0;
@@ -106,4 +129,5 @@ img {
 .card button:hover {
     background-color: #555;
 }
+
 

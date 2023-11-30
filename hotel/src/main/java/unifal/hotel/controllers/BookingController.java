@@ -1,5 +1,7 @@
 package unifal.hotel.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +22,7 @@ public class BookingController
         this.roomService = roomService;
     }
 
-    @GetMapping("/home/booking/register")
+    @GetMapping({"/home/booking/register", "/admin/booking/register"})
     public ModelAndView bookingRegister()
     {
         ModelAndView mv = new ModelAndView("hotel_booking_register");
@@ -32,7 +34,7 @@ public class BookingController
 
     }
 
-    @GetMapping("/home/booking/manager")
+    @GetMapping({"/home/booking/manager", "/admin/booking/manager"})
     public ModelAndView bookingManager()
     {
         ModelAndView mv = new ModelAndView("hotel_booking_manager");
@@ -40,7 +42,7 @@ public class BookingController
         return mv;
     }
 
-    @PostMapping("/home/booking/save")
+    @PostMapping({"/home/booking/save", "/admin/booking/save"})
     public String saveNewBooking(RedirectAttributes redirectAttributes)
     {
 
@@ -50,10 +52,15 @@ public class BookingController
         return "redirect:/home/booking/save";
     }
 
-    @GetMapping("/home/booking")
-    public ModelAndView booking()
+    @GetMapping({"/home/booking", "/admin/booking"})
+    public ModelAndView booking(HttpSession session)
     {
+
+        String root = session.getAttribute("role").equals("admin") ? "/admin" : "/home";
+
         ModelAndView mv = new ModelAndView("hotel_booking_page");
+
+        mv.addObject("root", root);
 
         return mv;
     }

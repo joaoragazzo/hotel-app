@@ -32,26 +32,34 @@
         </div>
     </div>
 </div>
+
 <div class="card-container">
-    <div class="card">
-        <img src="/images/hotel_logo.png" alt="Register Client" class="card-logo">
-        <h3>Register Client</h3>
-        <button id="registerClientButton" type="button">Enter</button>
-    </div>
-    <div class="card">
-        <img src="/images/hotel_logo.png" alt="Register Employee" class="card-logo">
-        <h3>Register Employee</h3>
-        <button id="registerEmployeeButton" type="button">Enter</button>
-    </div>
-    <div class="card">
-        <img src="/images/hotel_logo.png" alt="Booking" class="card-logo">
-        <h3>Booking</h3>
-        <button id="bookingButton" type="button">Enter</button>
-    </div>
-    <div class="card">
-        <img src="Images/hotel_logo.png" alt="Management" class="card-logo">
-        <h3>Management</h3>
-        <button id="managementButton" type="button">Enter</button>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="image">
+                    <img src="/images/hotel_logo.png" alt="Register Client" class="card-logo">
+                </div>
+                <h3><a class="btn-style btn-large">Clients</a></h3>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="image">
+                    <img src="/images/hotel_logo.png" alt="Register Client" class="card-logo">
+                </div>
+                <h3><a class="btn-style btn-large">Booking</a></h3>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="image">
+                    <img src="/images/hotel_logo.png" alt="Register Client" class="card-logo">
+                </div>
+                <h3><a class="btn-style btn-large">Employee</a></h3>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -64,23 +72,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
-<script src="scripts/script.js"></script>
-<script>
-    document.getElementById("registerClientButton").onclick = function () {
-        location.href = "hotel_client_register.html";
-    }
-
-    document.getElementById("registerEmployeeButton").onclick = function () {
-        location.href = "hotel_employee_register.html";
-    }
-
-    document.getElementById("bookingButton").onclick = function () {
-        location.href = "hotel_bookingpage.html";
-    }
-
-    document.getElementById("managementButton").onclick = function () {
-        location.href = "hotel_managerpage_management.html";
-    }
-</script>
 </body>
 </html>
