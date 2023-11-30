@@ -20,6 +20,9 @@ public class EmployeeController {
             return "redirect:/login";
         }
 
+        String root = session.getAttribute("role").equals("admin") ? "/admin" : "/home";
+        model.addAttribute("root", root);
+
         return "hotel_employee_page";
     }
 
