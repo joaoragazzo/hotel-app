@@ -22,6 +22,10 @@ body {
     width: 481px;
 }
 
+.btn-medium {
+    width: 312px;
+}
+
 .btn-style:hover {
     background-color: #555;
 }
