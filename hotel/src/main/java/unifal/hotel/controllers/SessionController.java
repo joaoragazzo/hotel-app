@@ -1,6 +1,7 @@
 package unifal.hotel.controllers;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,11 +14,13 @@ import unifal.hotel.utils.Security;
 
 import java.util.Objects;
 
+@Log4j2
 @Controller
 @AllArgsConstructor
 public class SessionController {
 
     private final AccountService accountService;
+
     @GetMapping("/login")
     public ModelAndView login() {
         ModelAndView mv = new ModelAndView("hotel_login");
@@ -27,6 +30,7 @@ public class SessionController {
 
         return mv;
     }
+
 
     @PostMapping("/login")
     public String authentication(RedirectAttributes redirectAttributes, Account account) {
@@ -41,19 +45,25 @@ public class SessionController {
             account_response = accountService.getAccount(email, password_hash);
         } catch (InvalidAccountCredentials e) {
             redirectAttributes.addFlashAttribute("errorMessage", "A error happened when trying to login: " + e.getMessage());
+            return "redirect:/login";
         }
 
-        if (Objects.isNull(account_response))
-        {
+        if (Objects.isNull(account_response)) {
             redirectAttributes.addFlashAttribute("errorMessage", "A error happened when trying to login: Unknown error");
             return "redirect:/login";
         }
 
-        if (account_response.getPerson().getEmployee().isReceptionist()) {
-            return "redirect:/home/employee";
+        if (Objects.isNull(account_response.getPerson().getEmployee())) {
+            redirectAttributes.addFlashAttribute("errorMessage", "A error happened when trying " +
+                    "  to login: This employee do not have permission enter this area.");
+            return "redirect:/login";
         }
 
-        return "redirect:/";
+        if (account_response.getPerson().getEmployee().isReceptionist()) {
+            return "redirect:/home";
+        }
+
+        return "redirect:/admin";
     }
 
 }

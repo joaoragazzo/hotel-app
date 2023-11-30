@@ -21,7 +21,7 @@ public class Employee implements Serializable {
     private Long id;
 
     @OneToOne
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name="person_id")
     private Person person;
 
     @OneToOne(mappedBy = "employee", optional = true)
