@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 
 @Setter
@@ -31,5 +32,13 @@ public class Employee implements Serializable {
 
     private Date hire_date;
     private Integer salary;
+
+    public Boolean isManager() {
+        return !Objects.isNull(manager);
+    }
+
+    public Boolean isReceptionist() {
+        return !Objects.isNull(receptionist);
+    }
 
 }

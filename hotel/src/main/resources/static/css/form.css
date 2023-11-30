@@ -38,6 +38,19 @@
     display: flex;
 }
 
+.form-row span {
+    margin-bottom: 10px;
+    color: gray;
+}
+
+.form-row span::after {
+    content: '';
+    flex-grow: 1; /* Faz com que a linha ocupe o espaço restante */
+    height: 1px; /* Altura da linha horizontal */
+    background: black; /* Cor da linha */
+    margin-left: 10px; /* Espaço entre o texto e a linha */
+}
+
 .form-row .form-group {
     flex: 1;
 }

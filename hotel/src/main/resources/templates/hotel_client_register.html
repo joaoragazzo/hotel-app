@@ -19,6 +19,7 @@
 <div class="container">
     <h2>Hotel Hotel</h2>
     <form action="#" th:action="@{/home/client/register}" th:object="${RegisterDTO}" method="POST">
+        <div class="form-row"><span>Client information</span></div>
         <div class="form-row">
             <div class="form-group">
                 <input type="text" th:field="*{person.name}" placeholder="Name" required>
@@ -31,6 +32,7 @@
                 <input id="idField" type="text" placeholder="ID" maxlength="14" minlength="14" required>
             </div>
         </div>
+
         <div class="form-row">
             <div class="form-group">
                 <input type="text" id="cellphoneField" placeholder="Cellphone" maxlength="16" minlength="16" required>
@@ -45,8 +47,9 @@
             <div class="form-group">
                 <input type="date" th:field="*{person.birthdate}" placeholder="BirthDate" required>
             </div>
-
         </div>
+        <br>
+        <div class="form-row"><span>Address information</span></div>
         <div class="form-row">
             <div class="form-group">
                 <input type="text" th:field="*{address.city}" placeholder="City" required>
@@ -55,7 +58,6 @@
                 <input type="text" th:field="*{address.country}" placeholder="Country" required>
             </div>
         </div>
-        <br>
         <div class="form-row">
             <div class="form-group">
                 <input type="text" th:field="*{address.street}" placeholder="Street" required>
