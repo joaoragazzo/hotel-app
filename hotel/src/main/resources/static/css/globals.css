@@ -59,6 +59,8 @@ h2 {
 
 .title {
     text-align: center;
+    align-items: center;
+    display: grid;
 }
 
 .login {

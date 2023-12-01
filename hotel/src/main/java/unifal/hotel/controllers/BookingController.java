@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import unifal.hotel.book.ControllerDefaultMessage;
@@ -57,12 +58,12 @@ public class BookingController {
             redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
             return "redirect:/login";
         }
-        //List<Booking> bookings = bookingService.fi
+        List<Booking> bookings = bookingService.getAllBookings();
 
         String root = session.getAttribute("role").equals("admin") ? "/admin" : "/home";
         model.addAttribute("root", root);
 
-        //model.addAttribute("")
+        model.addAttribute("bookings", bookings);
 
         return "hotel_booking_manager";
     }
@@ -125,6 +126,23 @@ public class BookingController {
 
         return "hotel_booking_page";
     }
+
+    @GetMapping({"/home/booking/delete/{id}","/admin/booking/delete/{id}"})
+    public String deleteBooking(Model model, HttpSession session, RedirectAttributes redirectAttributes, @PathVariable Integer id)
+    {
+        if (Objects.isNull(session.getAttribute("role"))) {
+            redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
+            return "redirect:/login";
+        }
+
+        String root = session.getAttribute("role").equals("admin") ? "/admin" : "/home";
+        model.addAttribute("root", root);
+
+        bookingService.deleteBooking(id);
+
+        return "redirect:" + root + "/booking/manager";
+    }
+
 
 
 

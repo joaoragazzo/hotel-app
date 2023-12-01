@@ -70,4 +70,18 @@ public class SessionController {
         return "redirect:/admin";
     }
 
+
+    @GetMapping("/logout")
+    public String logout(RedirectAttributes redirectAttributes, HttpSession session) {
+
+        if (Objects.isNull(session.getAttribute("role"))) {
+            redirectAttributes.addFlashAttribute("errorMessage", "You need to login to be able to logout.");
+            return "redirect:/login";
+        }
+
+        session.invalidate();
+        redirectAttributes.addFlashAttribute("successMessage", "You was successful logout.");
+
+        return "redirect:/login";
+    }
 }

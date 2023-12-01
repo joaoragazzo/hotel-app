@@ -31,7 +31,7 @@
 </head>
 <body>
 <div class="container">
-    <h2>Hotel Hotel - Login</h2>
+    <h2>Login</h2>
     <form action="#" th:action="@{/login}" th:object="${account}" method="POST">
         <div class="form-group">
             <input type="email" name="email" placeholder="Email" required th:field="*{email}">
@@ -40,7 +40,7 @@
             <input type="password" name="password" placeholder="Password" required th:field="*{password}">
         </div>
         <div class="form-footer">
-            <button id="returnButton">Return</button>
+            <a class="btn-style" href="/">Return</a>
             <button type="submit">Enter</button>
         </div>
     </form>
