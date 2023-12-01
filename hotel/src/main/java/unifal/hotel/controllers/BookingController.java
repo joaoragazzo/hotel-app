@@ -57,12 +57,12 @@ public class BookingController {
             redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
             return "redirect:/login";
         }
-        List<Booking> bookings = bookingService.fi
+        //List<Booking> bookings = bookingService.fi
 
         String root = session.getAttribute("role").equals("admin") ? "/admin" : "/home";
         model.addAttribute("root", root);
 
-        model.addAttribute("")
+        //model.addAttribute("")
 
         return "hotel_booking_manager";
     }
