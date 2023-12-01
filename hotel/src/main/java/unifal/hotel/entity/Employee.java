@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -30,6 +31,7 @@ public class Employee implements Serializable {
     @OneToOne(mappedBy = "employee", optional = true)
     private Receptionist receptionist;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date hire_date;
     private Integer salary;
 

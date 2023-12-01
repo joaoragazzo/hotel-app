@@ -12,20 +12,17 @@ import unifal.hotel.services.dto.RoomDTO;
 import java.util.Objects;
 
 @RestController
-public class BookingRestController
-{
+public class RoomRestController {
 
     private final RoomService roomService;
 
     @Autowired
-    public BookingRestController(RoomService roomService)
-    {
+    public RoomRestController(RoomService roomService) {
         this.roomService = roomService;
     }
 
-    @GetMapping("/home/room/{id}")
-    public ResponseEntity<RoomDTO> getRoomInfo(@PathVariable Long id)
-    {
+    @GetMapping("/api/room/{id}")
+    public ResponseEntity<RoomDTO> getRoomInfo(@PathVariable Long id) {
         Room room = roomService.getRoomById(id);
 
         if (Objects.isNull(room)) {
@@ -36,9 +33,8 @@ public class BookingRestController
 
     }
 
-    @GetMapping("/home/room/")
-    public ResponseEntity<RoomDTO> getRoomInfo()
-    {
+    @GetMapping("/api/room/")
+    public ResponseEntity<RoomDTO> getRoomInfo() {
         return ResponseEntity.notFound().build();
     }
 

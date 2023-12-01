@@ -25,8 +25,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Controller
-public class ClientController
-{
+public class ClientController {
 
     private final ClientService clientService;
     private final PersonService personService;
@@ -39,8 +38,7 @@ public class ClientController
 
 
     @GetMapping({"/home/client/register", "/admin/client/register"})
-    public String registerNewClientForm(Model model, RedirectAttributes redirectAttributes, HttpSession session)
-    {
+    public String registerNewClientForm(Model model, RedirectAttributes redirectAttributes, HttpSession session) {
         if (Objects.isNull(session.getAttribute("role"))) {
             redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
             return "redirect:/login";
@@ -56,8 +54,7 @@ public class ClientController
 
     @PostMapping({"/home/client/register", "/admin/client/register"})
     public String registerNewClientRegister(@ModelAttribute("RegisterDTO") PersonAddressRegisterDTO data,
-                                            RedirectAttributes redirectAttributes, HttpSession session)
-    {
+                                            RedirectAttributes redirectAttributes, HttpSession session) {
         if (Objects.isNull(session.getAttribute("role"))) {
             redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
             return "redirect:/login";
@@ -91,8 +88,7 @@ public class ClientController
     }
 
     @GetMapping({"/home/client/manager", "/admin/client/manager"})
-    public String viewAllClients(Model model, HttpSession session, RedirectAttributes redirectAttributes)
-    {
+    public String viewAllClients(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 
         if (Objects.isNull(session.getAttribute("role"))) {
             redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
@@ -109,8 +105,7 @@ public class ClientController
     }
 
     @GetMapping({"/home/client/edit/{id}", "/admin/client/edit/{id}"})
-    public String editClient(Model model, RedirectAttributes redirectAttributes, HttpSession session, @PathVariable String id)
-    {
+    public String editClient(Model model, RedirectAttributes redirectAttributes, HttpSession session, @PathVariable String id) {
 
         if (Objects.isNull(session.getAttribute("role"))) {
             redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
@@ -135,8 +130,7 @@ public class ClientController
     @PostMapping({"/home/client/edit", "/admin/client/edit"})
     public String editClientSave(@ModelAttribute("RegisterDTO") PersonAddressRegisterDTO data,
                                  RedirectAttributes redirectAttributes,
-                                 HttpSession session)
-    {
+                                 HttpSession session) {
 
         if (Objects.isNull(session.getAttribute("role"))) {
             redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
@@ -168,8 +162,7 @@ public class ClientController
     }
 
     @GetMapping({"/home/client/delete/{id}", "/admin/client/delete/{id}"})
-    public String deleteClient(@PathVariable String id, HttpSession session, RedirectAttributes redirectAttributes)
-    {
+    public String deleteClient(@PathVariable String id, HttpSession session, RedirectAttributes redirectAttributes) {
         if (Objects.isNull(session.getAttribute("role"))) {
             redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
             return "redirect:/login";
@@ -183,8 +176,7 @@ public class ClientController
     }
 
     @GetMapping({"/home/client", "/admin/client"})
-    public String client(Model model, HttpSession session, RedirectAttributes redirectAttributes)
-    {
+    public String client(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         if (Objects.isNull(session.getAttribute("role"))) {
             redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
             return "redirect:/login";

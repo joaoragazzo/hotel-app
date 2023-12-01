@@ -16,7 +16,7 @@ public class AdminController {
     @GetMapping("/admin")
     public String admin(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 
-        if(Objects.isNull(session.getAttribute("role")) || !session.getAttribute("role").equals("admin")) {
+        if (Objects.isNull(session.getAttribute("role")) || !session.getAttribute("role").equals("admin")) {
 
             redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.MANAGER_PERMISSIONS);
             return "redirect:/login";

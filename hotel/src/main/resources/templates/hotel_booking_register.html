@@ -19,23 +19,31 @@
 </head>
 <body>
 <div class="container">
-    <h2>Hotel Hotel - Booking Register</h2>
-    <form>
+    <h2>Booking Register</h2>
+    <form action="#" th:action="@{/home/booking/save}" th:object="${bookingObject}" method="POST">
         <div class="form-row"><span>Client information</span></div>
         <div class="form-row">
             <div class="form-group">
-                <input type="number" placeholder="Client ID" list="clients-ids" maxlength="11" minlength="11">
+                <input id="client-id" type="number" th:field="*{personId}" placeholder="Client ID" list="clients-ids" maxlength="11" minlength="11" required>
                 <datalist id="clients-ids">
                     <option data-th-each="client : ${clients}" data-th-value="${client.id}"
                             data-th-text="${client.id}"></option>
                 </datalist>
             </div>
         </div>
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" placeholder="Client name" id="client-name" disabled readonly>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Client surname" id="client-surname" disabled readonly>
+            </div>
+        </div>
         <br>
         <div class="form-row"><span>Room information</span></div>
         <div class="form-row">
             <div class="form-group">
-                <input type="number" placeholder="Room ID" list="rooms-ids" id="roomId">
+                <input th:field="*{roomId}" type="number" placeholder="Room ID" list="rooms-ids" id="room-id" required>
                 <datalist id="rooms-ids">
                     <option data-th-each="room: ${rooms}" data-th-value="${room.id}" data-th-text="${room.id}"></option>
                 </datalist>
@@ -43,35 +51,44 @@
         </div>
         <div class="form-row">
             <div class="form-group">
-                <input type="date" placeholder="Check In">
+                <input type="date" th:field="*{checkin}" placeholder="Check In" required>
             </div>
             <div class="form-group">
-                <input type="date" placeholder="Check Out">
-            </div>
+                <input type="date" th:field="*{checkout}" placeholder="Check Out" required>
+             </div>
         </div>
         <div class="form-row">
             <div class="form-group">
-                <input type="text" id="roomTypeLabel" placeholder="Room type" disabled>
+                <input type="text" id="roomTypeLabel" placeholder="Room type" disabled readonly>
             </div>
             <div class="form-group">
-                <input type="text" id="roomRentLabel" placeholder="Rent" disabled>
+                <input type="text" id="roomRentLabel" placeholder="Rent" disabled readonly>
             </div>
         </div>
         <div class="form-footer">
             <a class="btn-style" th:href="${root} + '/booking'">Return</a>
-            <a class="btn-style" type="submit">Enter</a>
+            <button class="btn-style" type="submit">Enter</button>
         </div>
     </form>
 </div>
+
+<div class="container success" th:if="${successMessage}">
+    <p th:text="${successMessage}">SuccessMessage</p>
+</div>
+
+<div class="container warning" th:if="${errorMessage}">
+    <p th:text="${errorMessage}">ErrorMessage</p>
+</div>
+
 <div class="footer">
     <p>Address | Contact</p>
 </div>
 <script>
 
-    document.getElementById("roomId").addEventListener("input", function (e) {
+    document.getElementById("room-id").addEventListener("input", function (e) {
         let value = e.target.value;
 
-        fetch("/home/room/" + value)
+        fetch("/api/room/" + value)
             .then(response => response.json())
             .then(data => {
                 document.getElementById("roomRentLabel").value = data.rent;
@@ -83,6 +100,24 @@
             }).catch(error => {
             document.getElementById("roomRentLabel").value = '';
             document.getElementById("roomTypeLabel").value = '';
+        })
+    });
+
+    document.getElementById("client-id").addEventListener("input", function (e) {
+        let value = e.target.value;
+
+        fetch("/api/person/" + value)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("client-name").value = data.client_name;
+                document.getElementById("client-surname").value = data.client_surname;
+            })
+            .catch(error => {
+                document.getElementById("client-name").value = '';
+                document.getElementById("client-surname").value = '';
+            }).catch(error => {
+            document.getElementById("client-name").value = '';
+            document.getElementById("client-surname").value = '';
         })
     });
 </script>

@@ -6,6 +6,7 @@ import unifal.hotel.entity.Client;
 import unifal.hotel.entity.Person;
 import unifal.hotel.exceptions.PersonCellphoneAlreadyExists;
 import unifal.hotel.exceptions.PersonIDAlreadyExists;
+import unifal.hotel.exceptions.PersonIDDontExists;
 import unifal.hotel.repository.jparepository.ClientRepository;
 import unifal.hotel.repository.jparepository.PersonRepository;
 
@@ -83,6 +84,18 @@ public class ClientService
         persons.sort(Comparator.comparing(Person::getId));
 
         return persons;
+    }
+
+    public Client getClientByPersonId(Long id) throws PersonIDDontExists {
+
+        Client client = clientRepository.getClientByPersonId(id);
+
+        if (!Objects.isNull(client)) {
+            return client;
+        }
+
+        throw new PersonIDDontExists("This person ID dont exists.");
+
     }
 
 

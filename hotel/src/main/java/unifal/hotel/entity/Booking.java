@@ -3,6 +3,7 @@ package unifal.hotel.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,8 +20,11 @@ public class Booking implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Date checkin;
-    private Date checkout;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date checkin_date;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date checkout_date;
 
     @ManyToOne
     @JoinColumn(name="client_id")
