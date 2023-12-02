@@ -15,5 +15,7 @@ public interface PersonRepository extends JpaRepository<Person, Long>
     @Override
     List<Person> findAllById(Iterable<Long> longs);
 
-    Boolean existsByCellphone(Long cellphone);
+    boolean existsById(Long id);
+
+    boolean existsByCellphone(Long cellphone);
 }

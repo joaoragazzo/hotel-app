@@ -362,6 +362,19 @@ public class DebugHotelController {
             return response_;
 
         return databaseConnection.insertNewBooking(client_id, room_id, checkinSQL, checkoutSQL);
+    }
+
+    @GetMapping("/debug/populate")
+    public APIMessageResponse populate() {
+        APIMessageResponse apiMessageResponse = new APIMessageResponse();
+
+
+        mySQLHotelRepository databaseConnection = new mySQLHotelRepository();
+
+
+
+
+
 
     }
 }

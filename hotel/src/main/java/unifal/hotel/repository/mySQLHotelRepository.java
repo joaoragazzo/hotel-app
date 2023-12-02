@@ -688,4 +688,40 @@ public class mySQLHotelRepository {
             closeConnection();
         }
     }
+
+    public APIMessageResponse populate()
+    {
+
+        APIMessageResponse response = new APIMessageResponse();
+
+        if (!connectToMySQL()) {
+            response.setMessage("Error connecting to the database.");
+            return response;
+        }
+
+        try {
+            preparedStatement = connection.prepareStatement(
+                    HotelBook.POPULATE_PERSONS_FIRST
+            );
+
+            preparedStatement.executeUpdate();
+
+            preparedStatement = connection.prepareStatement(
+                    HotelBook.POPULATE_PERSONS_SECOND
+            );
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            response.setMessage("A error occurs when trying to populate the database: " + e);
+            return response;
+
+        } finally {
+            closeConnection();
+        }
+
+
+        return response;
+    }
+
 }

@@ -1,18 +1,22 @@
 package unifal.hotel.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import unifal.hotel.entity.Receptionist;
 import unifal.hotel.repository.jparepository.ReceptionistRepository;
 
+import java.util.List;
+
+@AllArgsConstructor
 @Service
 public class ReceptionistService
 {
     public final ReceptionistRepository receptionistRepository;
 
-    @Autowired
-    public ReceptionistService(ReceptionistRepository receptionistRepository)
-    {
-        this.receptionistRepository = receptionistRepository;
+
+    public List<Receptionist> findAllReceptionist() {
+        return receptionistRepository.findAll();
     }
+
 
 }
