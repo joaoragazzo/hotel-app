@@ -53,7 +53,7 @@
             <td data-th-text="${receptionist.employee.getSalary()}"></td>
             <td data-th-text="${receptionist.employee.getReceptionist()?.getRating()} + '/5'"></td>
             <td>
-                <a th:href="@{{root}/employee/edit/{id}(id=${receptionist.employee.id}, root=${root})}">
+                <a th:href="@{{root}/employee/edit/{id}(id=${receptionist.employee.person.id}, root=${root})}">
                     <button>
                         <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0,0,256,256">
                             <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
@@ -67,7 +67,7 @@
                         </svg>
                     </button>
                 </a>
-                <a th:href="@{{root}/employee/delete/{id}(id=${receptionist.employee.id}, root=${root})}">
+                <a th:href="@{{root}/employee/delete/{id}(id=${receptionist.employee.person.id}, root=${root})}">
                     <button>
                         <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0,0,256,256">
                             <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"

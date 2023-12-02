@@ -162,7 +162,7 @@ public class ClientController {
     }
 
     @GetMapping({"/home/client/delete/{id}", "/admin/client/delete/{id}"})
-    public String deleteClient(@PathVariable String id, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String deleteClient(@PathVariable Long id, HttpSession session, RedirectAttributes redirectAttributes) {
         if (Objects.isNull(session.getAttribute("role"))) {
             redirectAttributes.addFlashAttribute("errorMessage", ControllerDefaultMessage.RECEPTIONIST_OR_MANAGER_PERMISSIONS);
             return "redirect:/login";
@@ -170,7 +170,7 @@ public class ClientController {
 
         String redirectURL = session.getAttribute("role").equals("admin") ? "/admin/client/manager" : "/home/client/manager";
 
-        personService.deletePerson(Long.parseLong(id));
+        personService.deletePerson(id);
 
         return "redirect:" + redirectURL;
     }

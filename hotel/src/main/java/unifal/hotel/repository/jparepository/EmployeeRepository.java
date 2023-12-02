@@ -7,5 +7,5 @@ import unifal.hotel.entity.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long>
 {
-
+    void deleteByReceptionistId(Long id);
 }

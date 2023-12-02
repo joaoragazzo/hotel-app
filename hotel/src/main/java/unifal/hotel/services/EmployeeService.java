@@ -1,5 +1,6 @@
 package unifal.hotel.services;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import unifal.hotel.entity.Employee;
@@ -19,14 +20,17 @@ import java.util.List;
 public class EmployeeService
 {
     private final EmployeeRepository employeeRepository;
-    private final ReceptionistRepository receptionistRepository;
-    private final AccountRepository accountRepository;
-    private final PersonRepository personRepository;
-
 
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
 
 
+    public void deleteEmployeeByReceptionistId(Long id) {
+        employeeRepository.deleteByReceptionistId(id);
+    }
+
+    public void saveEditedEmployee (Employee employee) {
+        employeeRepository.save(employee);
+    }
 }

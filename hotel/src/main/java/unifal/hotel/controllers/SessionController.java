@@ -43,7 +43,7 @@ public class SessionController {
         String password_hash = Security.encryptPasswordSHA256(password);
 
         try {
-            account_response = accountService.getAccount(email, password_hash);
+            account_response = accountService.loginAccount(email, password_hash);
         } catch (InvalidAccountCredentials e) {
             redirectAttributes.addFlashAttribute("errorMessage", "A error happened when trying to login: " + e.getMessage());
             return "redirect:/login";
