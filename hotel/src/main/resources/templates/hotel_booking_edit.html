@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking register</title>
+    <title>Hotel Booking Edit</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/globals.css" />
@@ -19,8 +19,8 @@
 </head>
 <body>
 <div class="container">
-    <h2>Booking Register</h2>
-    <form action="#" th:action="@{/home/booking/save}" th:object="${bookingObject}" method="POST">
+    <h2>Booking Edit</h2>
+    <form action="#" th:action="@{/home/booking/edit/{id}(id=${bookingIDValue})}" th:object="${bookingObject}" method="POST">
         <div class="form-row"><span>Client information</span></div>
         <div class="form-row">
             <div class="form-group">
@@ -84,6 +84,44 @@
     <p>Address | Contact</p>
 </div>
 <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        const room_id = document.getElementById('room-id').value;
+        const client_id = document.getElementById('client-id').value;
+        if (room_id !== "") {
+            fetch("/api/room/" + room_id)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("roomRentLabel").value = data.rent;
+                    document.getElementById("roomTypeLabel").value = data.room_type;
+                })
+                .catch(error => {
+                    document.getElementById("roomRentLabel").value = '';
+                    document.getElementById("roomTypeLabel").value = '';
+                }).catch(error => {
+                document.getElementById("roomRentLabel").value = '';
+                document.getElementById("roomTypeLabel").value = '';
+            })
+        }
+
+        if (client_id !== "") {
+            fetch("/api/person/" + client_id)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("client-name").value = data.client_name;
+                    document.getElementById("client-surname").value = data.client_surname;
+                })
+                .catch(error => {
+                    document.getElementById("client-name").value = '';
+                    document.getElementById("client-surname").value = '';
+                }).catch(error => {
+                document.getElementById("client-name").value = '';
+                document.getElementById("client-surname").value = '';
+            })
+        }
+    });
+
 
     document.getElementById("room-id").addEventListener("input", function (e) {
         let value = e.target.value;
